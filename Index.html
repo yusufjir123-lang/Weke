@@ -2,1438 +2,977 @@
 <html lang="so">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>Wamo Primary School</title>
 
 <style>
 *{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-:root{
-  --main:#087f8c;
-  --dark:#073b4c;
-  --bg:#eef5f7;
-  --card:#fff;
-  --text:#17323a;
-  --muted:#71838a;
-  --green:#2e9b61;
-  --red:#d64545;
-  --gold:#e9a825;
-  --line:#d9e4e8;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
 }
 
 body{
-  font-family:Arial,sans-serif;
-  background:linear-gradient(135deg,#eaf7f8,#f4f7fb);
-  color:var(--text);
-  min-height:100vh;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#081b33,#123d63,#087f8c);
+    color:white;
+    min-height:100vh;
 }
 
-/* HEADER */
-header{
-  background:linear-gradient(135deg,var(--dark),var(--main));
-  color:white;
-  padding:18px;
-  box-shadow:0 5px 20px #0002;
-  position:sticky;
-  top:0;
-  z-index:20;
-}
-
-.header{
-  max-width:1100px;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-}
-
-.logo{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.logoIcon{
-  width:48px;
-  height:48px;
-  border-radius:50%;
-  background:white;
-  color:var(--main);
-  display:grid;
-  place-items:center;
-  font-size:24px;
-  font-weight:bold;
-}
-
-.logo h1{
-  font-size:20px;
-}
-
-.logo small{
-  opacity:.8;
-}
-
-/* NAV */
-nav{
-  max-width:1100px;
-  margin:15px auto;
-  padding:0 15px;
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-}
-
-nav button{
-  border:0;
-  background:white;
-  color:var(--dark);
-  padding:12px 16px;
-  border-radius:12px;
-  white-space:nowrap;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 3px 12px #0001;
-  transition:.25s;
-}
-
-nav button:hover,
-nav button.active{
-  background:var(--main);
-  color:white;
-  transform:translateY(-2px);
-}
-
-/* MAIN */
-main{
-  max-width:1100px;
-  margin:auto;
-  padding:10px 15px 50px;
-}
-
-.page{
-  display:none;
-  animation:show .35s ease;
-}
-
-.page.active{
-  display:block;
-}
-
-@keyframes show{
-  from{
-    opacity:0;
-    transform:translateY(15px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
-
-/* CARDS */
-.card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:15px;
-  box-shadow:0 8px 25px #0000000b;
-}
-
-.card h2{
-  color:var(--dark);
-  margin-bottom:15px;
-}
-
-/* DASHBOARD */
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-}
-
-.stat{
-  color:white;
-  padding:20px;
-  border-radius:18px;
-  min-height:120px;
-  transition:.25s;
-}
-
-.stat:hover{
-  transform:translateY(-5px);
-}
-
-.stat:nth-child(1){background:#087f8c}
-.stat:nth-child(2){background:#2e9b61}
-.stat:nth-child(3){background:#e9a825}
-.stat:nth-child(4){background:#7b61a8}
-
-.stat b{
-  display:block;
-  font-size:32px;
-  margin-top:15px;
-}
-
-.stat span{
-  font-size:14px;
-}
-
-/* FORMS */
-label{
-  display:block;
-  margin:10px 0 5px;
-  font-weight:bold;
-  font-size:14px;
-}
-
-input,select{
-  width:100%;
-  padding:12px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  outline:none;
-  font-size:15px;
-  background:white;
-}
-
-input:focus,select:focus{
-  border-color:var(--main);
-  box-shadow:0 0 0 3px #087f8c18;
-}
-
-.row{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
+button,input,select{
+    font:inherit;
 }
 
 button{
-  cursor:pointer;
+    cursor:pointer;
+}
+
+.app{
+    min-height:100vh;
+    padding:14px;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:16px;
+    border-radius:18px;
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(12px);
+    box-shadow:0 8px 30px rgba(0,0,0,.25);
+    margin-bottom:14px;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#55e6d0;
+}
+
+.clock{
+    font-size:13px;
+    opacity:.85;
+}
+
+.nav{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:8px;
+    margin-bottom:14px;
+}
+
+.nav button{
+    border:0;
+    color:white;
+    background:rgba(255,255,255,.12);
+    padding:12px 16px;
+    border-radius:13px;
+    white-space:nowrap;
+    min-height:45px;
+}
+
+.nav button.active,
+.nav button:active{
+    background:#12bfae;
+    transform:scale(.97);
+}
+
+.page{
+    display:none;
+    animation:fade .3s ease;
+}
+
+.page.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{opacity:0;transform:translateY(8px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+.hero{
+    padding:25px;
+    border-radius:20px;
+    background:linear-gradient(135deg,rgba(18,191,174,.3),rgba(255,255,255,.08));
+    margin-bottom:15px;
+}
+
+.hero h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    opacity:.8;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.card{
+    padding:18px;
+    border-radius:18px;
+    background:rgba(255,255,255,.11);
+    box-shadow:0 6px 20px rgba(0,0,0,.15);
+    transition:.2s;
+}
+
+.card:active{
+    transform:scale(.97);
+}
+
+.card h3{
+    font-size:14px;
+    opacity:.8;
+    margin-bottom:8px;
+}
+
+.number{
+    font-size:28px;
+    font-weight:bold;
+    color:#55e6d0;
+}
+
+.panel{
+    background:rgba(255,255,255,.1);
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:15px;
+}
+
+.panel h2{
+    margin-bottom:15px;
+}
+
+.form{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+input,select{
+    width:100%;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(0,0,0,.18);
+    color:white;
+    padding:13px;
+    border-radius:12px;
+    outline:none;
+}
+
+input::placeholder{
+    color:#cbd5df;
+}
+
+select option{
+    color:black;
+}
+
+.full{
+    grid-column:1/-1;
 }
 
 .btn{
-  border:0;
-  background:var(--main);
-  color:white;
-  padding:12px 18px;
-  border-radius:10px;
-  font-weight:bold;
-  margin-top:12px;
-  transition:.2s;
+    border:0;
+    padding:13px 18px;
+    border-radius:12px;
+    background:#12bfae;
+    color:white;
+    font-weight:bold;
+    min-height:45px;
 }
 
-.btn:hover{
-  transform:scale(1.03);
+.btn:active{
+    transform:scale(.96);
 }
 
-.btn.red{
-  background:var(--red);
+.btn.danger{
+    background:#e05252;
 }
 
-.btn.green{
-  background:var(--green);
+.btn.secondary{
+    background:#31587a;
 }
 
-.btn.gold{
-  background:var(--gold);
-  color:#222;
-}
-
-/* STUDENTS */
 .search{
-  margin-bottom:15px;
+    margin-bottom:14px;
 }
 
 .students{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
 }
 
 .student{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:15px;
-  transition:.25s;
+    background:rgba(255,255,255,.1);
+    border-radius:18px;
+    padding:15px;
+    text-align:center;
+    animation:fade .3s ease;
 }
 
-.student:hover{
-  transform:translateY(-4px);
-  box-shadow:0 10px 25px #0002;
+.student img{
+    width:80px;
+    height:80px;
+    object-fit:cover;
+    border-radius:50%;
+    border:3px solid #55e6d0;
+    margin-bottom:10px;
 }
 
-.photo{
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  object-fit:cover;
-  display:block;
-  margin:auto auto 10px;
-  border:4px solid #e5f2f4;
+.student .no-photo{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#31587a;
+    margin:0 auto 10px;
+    font-size:30px;
 }
 
 .student h3{
-  text-align:center;
-  margin-bottom:5px;
+    margin-bottom:5px;
 }
 
 .student p{
-  color:var(--muted);
-  text-align:center;
-  font-size:13px;
-  margin:3px;
+    font-size:13px;
+    opacity:.75;
+    margin-bottom:10px;
 }
 
 .actions{
-  display:flex;
-  gap:6px;
-  margin-top:10px;
+    display:flex;
+    gap:7px;
+    justify-content:center;
 }
 
 .actions button{
-  flex:1;
-  border:0;
-  border-radius:8px;
-  padding:9px 4px;
-  font-weight:bold;
+    flex:1;
+    border:0;
+    border-radius:10px;
+    padding:9px;
+    color:white;
+    background:#31587a;
 }
 
-/* ATTENDANCE */
-.attRow{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  padding:12px 0;
-  border-bottom:1px solid var(--line);
+.att-row,
+.mark-row{
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr;
+    gap:10px;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid rgba(255,255,255,.1);
 }
 
-.attBtns{
-  display:flex;
-  gap:5px;
+.status{
+    display:flex;
+    gap:6px;
 }
 
-.attBtns button{
-  border:0;
-  padding:8px 10px;
-  border-radius:8px;
-  font-weight:bold;
+.status button{
+    border:0;
+    color:white;
+    border-radius:9px;
+    padding:9px 12px;
 }
 
-.present{
-  background:#d9f5e4;
-  color:#187343;
+.present{background:#149b67}
+.late{background:#d49a24}
+.absent{background:#d64d57}
+
+.result{
+    padding:14px;
+    border-radius:14px;
+    background:rgba(255,255,255,.08);
+    margin-bottom:10px;
 }
 
-.late{
-  background:#fff0bd;
-  color:#9a7100;
+.grade{
+    color:#55e6d0;
+    font-weight:bold;
 }
 
-.absent{
-  background:#ffdede;
-  color:#a62222;
-}
-
-.selected{
-  outline:3px solid #0002;
-}
-
-/* TABLE */
-.tableWrap{
-  overflow-x:auto;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-th,td{
-  padding:11px;
-  border-bottom:1px solid var(--line);
-  text-align:left;
-}
-
-th{
-  background:#edf7f8;
-}
-
-/* PROFILE */
-.profile{
-  text-align:center;
-}
-
-.bigPhoto{
-  width:130px;
-  height:130px;
-  object-fit:cover;
-  border-radius:50%;
-  border:6px solid #e3f4f5;
-}
-
-/* EMPTY */
 .empty{
-  text-align:center;
-  padding:30px;
-  color:var(--muted);
+    text-align:center;
+    padding:30px;
+    opacity:.65;
 }
 
-/* TOAST */
-#toast{
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  background:#17323a;
-  color:white;
-  padding:13px 18px;
-  border-radius:12px;
-  display:none;
-  z-index:100;
-  animation:toast .3s;
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:20px;
+    transform:translateX(-50%) translateY(80px);
+    background:#101f2d;
+    padding:13px 20px;
+    border-radius:12px;
+    box-shadow:0 8px 25px rgba(0,0,0,.3);
+    transition:.3s;
+    z-index:100;
 }
 
-@keyframes toast{
-  from{
-    transform:translateY(20px);
-    opacity:0;
-  }
-  to{
-    transform:translateY(0);
-    opacity:1;
-  }
+.toast.show{
+    transform:translateX(-50%) translateY(0);
 }
 
-/* MOBILE */
+footer{
+    text-align:center;
+    opacity:.55;
+    padding:20px;
+    font-size:12px;
+}
+
 @media(max-width:800px){
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
 
-  .students{
-    grid-template-columns:repeat(2,1fr);
-  }
+    .students{
+        grid-template-columns:repeat(2,1fr);
+    }
 }
 
-@media(max-width:550px){
-  .row{
-    grid-template-columns:1fr;
-  }
+@media(max-width:520px){
+    .app{
+        padding:9px;
+    }
 
-  .students{
-    grid-template-columns:1fr;
-  }
+    header{
+        padding:12px;
+    }
 
-  .header{
-    align-items:flex-start;
-  }
+    .logo{
+        font-size:18px;
+    }
 
-  .logo h1{
-    font-size:17px;
-  }
+    .hero h1{
+        font-size:22px;
+    }
 
-  nav{
-    scrollbar-width:none;
-  }
+    .form{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .students{
+        grid-template-columns:1fr;
+    }
+
+    .att-row,
+    .mark-row{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(orientation:landscape) and (max-height:500px){
+    .app{
+        padding:8px 12px;
+    }
+
+    header{
+        padding:10px 14px;
+        margin-bottom:8px;
+    }
+
+    .nav{
+        margin-bottom:8px;
+    }
+
+    .hero{
+        padding:16px;
+    }
+
+    .card{
+        padding:12px;
+    }
+
+    .number{
+        font-size:23px;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<div class="app">
+
 <header>
-  <div class="header">
-    <div class="logo">
-      <div class="logoIcon">W</div>
-      <div>
-        <h1>Wamo Primary School</h1>
-        <small>School Management System</small>
-      </div>
-    </div>
-    <div id="date"></div>
-  </div>
+    <div class="logo">🏫 <span>Wamo</span> Primary School</div>
+    <div class="clock" id="clock"></div>
 </header>
 
-<nav>
-  <button class="active" onclick="page('home',this)">🏠 Home</button>
-  <button onclick="page('students',this)">👨‍🎓 Students</button>
-  <button onclick="page('add',this)">➕ Add Student</button>
-  <button onclick="page('attendance',this)">📋 Attendance</button>
-  <button onclick="page('marks',this)">📝 Exams</button>
-  <button onclick="page('fees',this)">💰 Fees</button>
-  <button onclick="page('results',this)">🏆 Results</button>
-</nav>
-
-<main>
+<div class="nav">
+    <button class="active" onclick="showPage('home',this)">🏠 Home</button>
+    <button onclick="showPage('students',this)">👨‍🎓 Students</button>
+    <button onclick="showPage('add',this)">➕ Add Student</button>
+    <button onclick="showPage('attendance',this)">🟢 Attendance</button>
+    <button onclick="showPage('exams',this)">📝 Exams</button>
+    <button onclick="showPage('results',this)">📊 Results</button>
+</div>
 
 <!-- HOME -->
 <section id="home" class="page active">
 
-  <div class="stats">
-    <div class="stat">
-      👨‍🎓
-      <b id="totalStudents">0</b>
-      <span>Total Students</span>
+<div class="hero">
+    <h1>Ku soo dhowow Wamo Primary School</h1>
+    <p>School Management System — Samsung A32 friendly</p>
+</div>
+
+<div class="cards">
+    <div class="card">
+        <h3>Students</h3>
+        <div class="number" id="totalStudents">0</div>
     </div>
 
-    <div class="stat">
-      📋
-      <b id="presentToday">0</b>
-      <span>Present Today</span>
+    <div class="card">
+        <h3>Present</h3>
+        <div class="number" id="totalPresent">0</div>
     </div>
 
-    <div class="stat">
-      📝
-      <b id="totalMarks">0</b>
-      <span>Exam Records</span>
+    <div class="card">
+        <h3>Absent</h3>
+        <div class="number" id="totalAbsent">0</div>
     </div>
 
-    <div class="stat">
-      💰
-      <b id="totalFees">0</b>
-      <span>Total Fees</span>
+    <div class="card">
+        <h3>Exams</h3>
+        <div class="number" id="totalExams">0</div>
     </div>
-  </div>
-
-  <div class="card" style="margin-top:15px">
-    <h2>📊 School Dashboard</h2>
-    <p>
-      Ku soo dhawoow Wamo Primary School Management System.
-      Xogta aad geliso browser-ka ayaa lagu kaydinayaa telefoonkaaga.
-    </p>
-  </div>
+</div>
 
 </section>
-
 
 <!-- STUDENTS -->
 <section id="students" class="page">
 
-  <div class="card">
-    <h2>👨‍🎓 Students</h2>
+<div class="panel">
+    <h2>👨‍🎓 Ardayda</h2>
+    <input class="search"
+           id="search"
+           placeholder="🔎 Raadi magaca ardayga..."
+           oninput="renderStudents()">
 
-    <input
-      class="search"
-      id="search"
-      placeholder="🔎 Raadi magaca ardayga..."
-      oninput="showStudents()"
-    >
-
-    <div id="studentList" class="students"></div>
-  </div>
+    <div id="studentsList" class="students"></div>
+</div>
 
 </section>
-
 
 <!-- ADD STUDENT -->
 <section id="add" class="page">
 
-  <div class="card">
-    <h2>➕ Geli Arday Cusub</h2>
+<div class="panel">
+    <h2>➕ Ku dar Arday Cusub</h2>
 
-    <div class="row">
+    <form id="studentForm" class="form">
 
-      <div>
-        <label>Magaca ardayga</label>
-        <input id="sName" placeholder="Tusaale: Ahmed Ali">
-      </div>
+        <input id="studentName"
+               placeholder="Magaca ardayga"
+               required>
 
-      <div>
-        <label>Class</label>
-        <select id="sClass">
-          <option>Class 1</option>
-          <option>Class 2</option>
-          <option>Class 3</option>
-          <option>Class 4</option>
-          <option>Class 5</option>
-          <option>Class 6</option>
-          <option>Class 7</option>
-          <option>Class 8</option>
-        </select>
-      </div>
+        <input id="studentClass"
+               placeholder="Fasalka"
+               required>
 
-      <div>
-        <label>Username</label>
-        <input id="sUser" placeholder="student01">
-      </div>
+        <input id="studentUsername"
+               placeholder="Username"
+               required>
 
-      <div>
-        <label>Password</label>
-        <input id="sPass" type="password" placeholder="Password">
-      </div>
+        <input id="studentPassword"
+               placeholder="Password"
+               required>
 
-      <div>
-        <label>Phone</label>
-        <input id="sPhone" placeholder="61xxxxxxx">
-      </div>
+        <input id="studentPhone"
+               placeholder="Telefoon">
 
-      <div>
-        <label>Da'da</label>
-        <input id="sAge" type="number" placeholder="10">
-      </div>
+        <input id="studentAge"
+               type="number"
+               placeholder="Da'da">
 
-    </div>
+        <input id="studentPhoto"
+               type="file"
+               accept="image/*"
+               class="full">
 
-    <label>Sawirka ardayga</label>
-    <input id="sPhoto" type="file" accept="image/*">
+        <button class="btn full" type="submit">
+            💾 Kaydi Ardayga
+        </button>
 
-    <button class="btn green" onclick="addStudent()">
-      💾 Kaydi Ardayga
-    </button>
-
-  </div>
+    </form>
+</div>
 
 </section>
-
 
 <!-- ATTENDANCE -->
 <section id="attendance" class="page">
 
-  <div class="card">
-    <h2>📋 Attendance</h2>
+<div class="panel">
+    <h2>🟢 Attendance</h2>
 
-    <div class="row">
-      <div>
-        <label>Class</label>
-        <select id="attClass" onchange="showAttendance()">
-          <option>Class 1</option>
-          <option>Class 2</option>
-          <option>Class 3</option>
-          <option>Class 4</option>
-          <option>Class 5</option>
-          <option>Class 6</option>
-          <option>Class 7</option>
-          <option>Class 8</option>
-        </select>
-      </div>
+    <input type="date" id="attendanceDate">
 
-      <div>
-        <label>Taariikh</label>
-        <input id="attDate" type="date" onchange="showAttendance()">
-      </div>
-    </div>
+    <br><br>
 
     <div id="attendanceList"></div>
 
-  </div>
+    <br>
+
+    <button class="btn" onclick="saveAttendance()">
+        💾 Kaydi Attendance
+    </button>
+</div>
 
 </section>
 
+<!-- EXAMS -->
+<section id="exams" class="page">
 
-<!-- MARKS -->
-<section id="marks" class="page">
+<div class="panel">
+    <h2>📝 Exams & Marks</h2>
 
-  <div class="card">
-    <h2>📝 Exam / Marks</h2>
+    <select id="examStudent"></select>
+    <br><br>
 
-    <label>Ardayga</label>
-    <select id="markStudent"></select>
-
-    <div class="row">
-
-      <div>
-        <label>Subject</label>
-        <select id="subject">
-          <option>Mathematics</option>
-          <option>English</option>
-          <option>Science</option>
-          <option>Somali</option>
-          <option>Arabic</option>
-          <option>Islamic Studies</option>
-        </select>
-      </div>
-
-      <div>
-        <label>Exam</label>
-        <select id="term">
-          <option>Term 1</option>
-          <option>Term 2</option>
-          <option>Term 3</option>
-        </select>
-      </div>
-
+    <div class="form">
+        <input id="math" type="number" min="0" max="100" placeholder="Math">
+        <input id="english" type="number" min="0" max="100" placeholder="English">
+        <input id="science" type="number" min="0" max="100" placeholder="Science">
+        <input id="somali" type="number" min="0" max="100" placeholder="Somali">
     </div>
 
-    <label>Score /100</label>
-    <input id="score" type="number" min="0" max="100">
+    <br>
 
-    <button class="btn" onclick="addMark()">
-      💾 Kaydi Mark
+    <button class="btn" onclick="saveExam()">
+        💾 Kaydi Marks
     </button>
-
-  </div>
-
-  <div class="card">
-    <h2>📚 Exam Records</h2>
-    <div class="tableWrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Student</th>
-            <th>Subject</th>
-            <th>Term</th>
-            <th>Score</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="markTable"></tbody>
-      </table>
-    </div>
-  </div>
+</div>
 
 </section>
-
-
-<!-- FEES -->
-<section id="fees" class="page">
-
-  <div class="card">
-    <h2>💰 School Fees</h2>
-
-    <label>Ardayga</label>
-    <select id="feeStudent"></select>
-
-    <label>Amount</label>
-    <input id="feeAmount" type="number" placeholder="Amount">
-
-    <label>Note</label>
-    <input id="feeNote" placeholder="Tusaale: January fee">
-
-    <button class="btn green" onclick="addFee()">
-      💾 Record Payment
-    </button>
-
-  </div>
-
-  <div class="card">
-    <h2>💳 Payment Records</h2>
-    <div id="feeList"></div>
-  </div>
-
-</section>
-
 
 <!-- RESULTS -->
 <section id="results" class="page">
 
-  <div class="card">
-    <h2>🏆 Student Results</h2>
-
-    <label>Dooro arday</label>
-    <select id="resultStudent" onchange="showResult()"></select>
-
-    <div id="resultBox"></div>
-  </div>
+<div class="panel">
+    <h2>📊 Results</h2>
+    <div id="resultsList"></div>
+</div>
 
 </section>
 
+<footer>
+    Wamo Primary School © 2026
+</footer>
 
-<!-- PROFILE -->
-<section id="profile" class="page">
+</div>
 
-  <div class="card profile">
-    <img id="profilePhoto" class="bigPhoto">
-
-    <h2 id="profileName"></h2>
-
-    <p id="profileInfo"></p>
-
-    <div id="profileMarks" style="margin-top:20px"></div>
-  </div>
-
-</section>
-
-</main>
-
-<div id="toast"></div>
-
+<div id="toast" class="toast"></div>
 
 <script>
-/* =========================
-   WAMO PRIMARY SCHOOL
-   JAVASCRIPT
-========================= */
 
-let db={
-  students:[],
-  attendance:{},
-  marks:[],
-  fees:[]
-};
+let students = JSON.parse(localStorage.getItem("wamo_students") || "[]");
+let attendance = JSON.parse(localStorage.getItem("wamo_attendance") || "{}");
+let exams = JSON.parse(localStorage.getItem("wamo_exams") || "[]");
 
-try{
-  const old=localStorage.getItem("wamo_school");
-  if(old){
-    db=JSON.parse(old);
-  }
-}catch(e){
-  console.log(e);
-}
-
-function save(){
-  localStorage.setItem("wamo_school",JSON.stringify(db));
+function saveData(){
+    localStorage.setItem("wamo_students",JSON.stringify(students));
+    localStorage.setItem("wamo_attendance",JSON.stringify(attendance));
+    localStorage.setItem("wamo_exams",JSON.stringify(exams));
 }
 
 function toast(message){
-  const t=document.getElementById("toast");
-  t.textContent=message;
-  t.style.display="block";
+    const t=document.getElementById("toast");
+    t.textContent=message;
+    t.classList.add("show");
 
-  setTimeout(()=>{
-    t.style.display="none";
-  },2000);
+    setTimeout(()=>{
+        t.classList.remove("show");
+    },2000);
 }
 
-function page(id,btn){
+function showPage(id,button){
 
-  document.querySelectorAll(".page")
-    .forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".page").forEach(p=>{
+        p.classList.remove("active");
+    });
 
-  document.getElementById(id)
-    .classList.add("active");
+    document.getElementById(id).classList.add("active");
 
-  document.querySelectorAll("nav button")
-    .forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".nav button").forEach(b=>{
+        b.classList.remove("active");
+    });
 
-  if(btn) btn.classList.add("active");
+    button.classList.add("active");
 
-  refresh();
+    if(id==="students") renderStudents();
+    if(id==="attendance") renderAttendance();
+    if(id==="exams") renderExamStudents();
+    if(id==="results") renderResults();
 }
 
+document.getElementById("studentForm").addEventListener("submit",function(e){
 
-/* DATE */
-document.getElementById("date").textContent=
-new Date().toLocaleDateString("en-GB");
+    e.preventDefault();
 
+    const file=document.getElementById("studentPhoto").files[0];
 
-/* ADD STUDENT */
-function addStudent(){
-
-  const name=document.getElementById("sName").value.trim();
-  const cls=document.getElementById("sClass").value;
-  const username=document.getElementById("sUser").value.trim();
-  const password=document.getElementById("sPass").value;
-  const phone=document.getElementById("sPhone").value;
-  const age=document.getElementById("sAge").value;
-  const file=document.getElementById("sPhoto").files[0];
-
-  if(!name){
-    toast("❌ Magaca ardayga geli");
-    return;
-  }
-
-  const student={
-    id:Date.now(),
-    name,
-    cls,
-    username,
-    password,
-    phone,
-    age,
-    photo:""
-  };
-
-  if(file){
-
-    const reader=new FileReader();
-
-    reader.onload=function(e){
-
-      student.photo=e.target.result;
-
-      db.students.push(student);
-
-      save();
-
-      clearStudentForm();
-
-      toast("✅ Ardayga waa la kaydiyay");
-
-      refresh();
+    const student={
+        id:Date.now(),
+        name:document.getElementById("studentName").value,
+        className:document.getElementById("studentClass").value,
+        username:document.getElementById("studentUsername").value,
+        password:document.getElementById("studentPassword").value,
+        phone:document.getElementById("studentPhone").value,
+        age:document.getElementById("studentAge").value,
+        photo:""
     };
 
-    reader.readAsDataURL(file);
+    if(file){
 
-  }else{
+        const reader=new FileReader();
 
-    db.students.push(student);
+        reader.onload=function(){
 
-    save();
+            student.photo=reader.result;
+            students.push(student);
+            saveData();
 
-    clearStudentForm();
+            document.getElementById("studentForm").reset();
 
-    toast("✅ Ardayga waa la kaydiyay");
+            updateDashboard();
+            toast("✅ Ardayga waa la kaydiyey");
+        };
 
-    refresh();
-  }
+        reader.readAsDataURL(file);
+
+    }else{
+
+        students.push(student);
+        saveData();
+
+        this.reset();
+
+        updateDashboard();
+        toast("✅ Ardayga waa la kaydiyey");
+    }
+});
+
+function renderStudents(){
+
+    const box=document.getElementById("studentsList");
+    const search=(document.getElementById("search")?.value || "").toLowerCase();
+
+    const list=students.filter(s=>
+        s.name.toLowerCase().includes(search)
+    );
+
+    if(!list.length){
+        box.innerHTML='<div class="empty">Ma jiro arday la helay.</div>';
+        return;
+    }
+
+    box.innerHTML=list.map(s=>`
+
+        <div class="student">
+
+            ${
+                s.photo
+                ? `<img src="${s.photo}">`
+                : `<div class="no-photo">👤</div>`
+            }
+
+            <h3>${escapeHTML(s.name)}</h3>
+
+            <p>
+                Fasalka: ${escapeHTML(s.className)}<br>
+                Username: ${escapeHTML(s.username)}
+            </p>
+
+            <div class="actions">
+                <button onclick="viewStudent(${s.id})">👁️</button>
+                <button onclick="deleteStudent(${s.id})">🗑️</button>
+            </div>
+
+        </div>
+
+    `).join("");
 }
 
+function viewStudent(id){
 
-function clearStudentForm(){
+    const s=students.find(x=>x.id===id);
 
-  document.getElementById("sName").value="";
-  document.getElementById("sUser").value="";
-  document.getElementById("sPass").value="";
-  document.getElementById("sPhone").value="";
-  document.getElementById("sAge").value="";
-  document.getElementById("sPhoto").value="";
+    if(!s)return;
+
+    alert(
+`👤 STUDENT PROFILE
+
+Magac: ${s.name}
+Fasal: ${s.className}
+Username: ${s.username}
+Password: ${s.password}
+Telefoon: ${s.phone || "-"}
+Da': ${s.age || "-"}`
+    );
 }
-
-
-/* STUDENTS */
-function showStudents(){
-
-  const box=document.getElementById("studentList");
-  const search=
-    (document.getElementById("search")?.value || "")
-    .toLowerCase();
-
-  const list=db.students.filter(s=>
-    s.name.toLowerCase().includes(search)
-  );
-
-  if(!list.length){
-
-    box.innerHTML=
-      `<div class="empty">Arday lama helin.</div>`;
-
-    return;
-  }
-
-  box.innerHTML=list.map(s=>`
-
-    <div class="student">
-
-      <img
-        class="photo"
-        src="${s.photo || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2280%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23dfecef%22/%3E%3Ctext x=%2250%25%22 y=%2255%25%22 text-anchor=%22middle%22 font-size=%2230%22%3E👤%3C/text%3E%3C/svg%3E'}"
-      >
-
-      <h3>${esc(s.name)}</h3>
-
-      <p>Class: ${esc(s.cls)}</p>
-      <p>Username: ${esc(s.username || "-")}</p>
-      <p>Phone: ${esc(s.phone || "-")}</p>
-
-      <div class="actions">
-
-        <button
-          class="btn"
-          onclick="profile(${s.id})">
-          Profile
-        </button>
-
-        <button
-          class="btn red"
-          onclick="deleteStudent(${s.id})">
-          Delete
-        </button>
-
-      </div>
-
-    </div>
-
-  `).join("");
-}
-
 
 function deleteStudent(id){
 
-  if(!confirm("Ma hubtaa inaad tirtirayso ardaygan?"))
-    return;
+    if(!confirm("Ma rabtaa inaad tirtirto ardaygan?")) return;
 
-  db.students=db.students.filter(s=>s.id!==id);
+    students=students.filter(s=>s.id!==id);
 
-  db.marks=db.marks.filter(m=>m.studentId!==id);
+    saveData();
+    renderStudents();
+    updateDashboard();
 
-  db.fees=db.fees.filter(f=>f.studentId!==id);
-
-  save();
-
-  toast("🗑️ Ardayga waa la tirtiray");
-
-  refresh();
+    toast("🗑️ Ardayga waa la tirtiray");
 }
 
+function renderAttendance(){
 
-/* PROFILE */
-function profile(id){
+    const box=document.getElementById("attendanceList");
 
-  const s=db.students.find(x=>x.id===id);
-
-  if(!s)return;
-
-  document.querySelectorAll(".page")
-    .forEach(x=>x.classList.remove("active"));
-
-  document.getElementById("profile")
-    .classList.add("active");
-
-  document.querySelectorAll("nav button")
-    .forEach(x=>x.classList.remove("active"));
-
-  document.getElementById("profilePhoto").src=
-    s.photo || "";
-
-  document.getElementById("profileName")
-    .textContent=s.name;
-
-  document.getElementById("profileInfo")
-    .innerHTML=
-    `Class: ${esc(s.cls)}<br>
-     Username: ${esc(s.username || "-")}<br>
-     Phone: ${esc(s.phone || "-")}<br>
-     Age: ${esc(s.age || "-")}`;
-
-  const marks=db.marks.filter(m=>m.studentId===id);
-
-  document.getElementById("profileMarks").innerHTML=
-    marks.length
-    ? `<h3>Exam Results</h3>
-       ${marks.map(m=>
-       `<p>${esc(m.subject)}: <b>${m.score}/100</b></p>`
-       ).join("")}`
-    : "<p>No exam records.</p>";
-}
-
-
-/* ATTENDANCE */
-function showAttendance(){
-
-  const cls=document.getElementById("attClass").value;
-  const date=document.getElementById("attDate").value;
-
-  const box=document.getElementById("attendanceList");
-
-  const students=db.students.filter(s=>s.cls===cls);
-
-  if(!students.length){
-
-    box.innerHTML=
-      `<div class="empty">
-        Class-kan arday kuma jiraan.
-      </div>`;
-
-    return;
-  }
-
-  box.innerHTML=students.map(s=>{
-
-    const key=date+"_"+s.id;
-
-    const status=db.attendance[key] || "";
-
-    return `
-
-      <div class="attRow">
-
-        <b>${esc(s.name)}</b>
-
-        <div class="attBtns">
-
-          <button
-            class="present ${status==="P"?"selected":""}"
-            onclick="attendance(${s.id},'P')">
-            P
-          </button>
-
-          <button
-            class="late ${status==="L"?"selected":""}"
-            onclick="attendance(${s.id},'L')">
-            L
-          </button>
-
-          <button
-            class="absent ${status==="A"?"selected":""}"
-            onclick="attendance(${s.id},'A')">
-            A
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  }).join("");
-}
-
-
-function attendance(id,status){
-
-  const date=document.getElementById("attDate").value;
-
-  if(!date){
-    toast("❌ Taariikh dooro");
-    return;
-  }
-
-  db.attendance[date+"_"+id]=status;
-
-  save();
-
-  showAttendance();
-
-  toast("✅ Attendance waa la kaydiyay");
-}
-
-
-/* MARKS */
-function fillStudentSelects(){
-
-  const ids=[
-    "markStudent",
-    "feeStudent",
-    "resultStudent"
-  ];
-
-  ids.forEach(id=>{
-
-    const el=document.getElementById(id);
-
-    if(!el)return;
-
-    el.innerHTML=db.students.map(s=>
-      `<option value="${s.id}">
-        ${esc(s.name)} - ${esc(s.cls)}
-      </option>`
-    ).join("");
-
-  });
-}
-
-
-function addMark(){
-
-  const studentId=Number(
-    document.getElementById("markStudent").value
-  );
-
-  const subject=
-    document.getElementById("subject").value;
-
-  const term=
-    document.getElementById("term").value;
-
-  const score=Number(
-    document.getElementById("score").value
-  );
-
-  if(!studentId || isNaN(score)){
-    toast("❌ Xogta buuxi");
-    return;
-  }
-
-  if(score<0 || score>100){
-    toast("❌ Score waa 0 ilaa 100");
-    return;
-  }
-
-  db.marks.push({
-    id:Date.now(),
-    studentId,
-    subject,
-    term,
-    score
-  });
-
-  save();
-
-  document.getElementById("score").value="";
-
-  toast("✅ Mark waa la kaydiyay");
-
-  showMarks();
-  updateStats();
-}
-
-
-function showMarks(){
-
-  const box=document.getElementById("markTable");
-
-  if(!db.marks.length){
-
-    box.innerHTML=
-      `<tr><td colspan="5">No records</td></tr>`;
-
-    return;
-  }
-
-  box.innerHTML=db.marks.map(m=>{
-
-    const s=db.students.find(x=>x.id===m.studentId);
-
-    return `
-      <tr>
-
-        <td>${esc(s?.name || "Unknown")}</td>
-
-        <td>${esc(m.subject)}</td>
-
-        <td>${esc(m.term)}</td>
-
-        <td><b>${m.score}/100</b></td>
-
-        <td>
-          <button
-            class="btn red"
-            onclick="deleteMark(${m.id})">
-            X
-          </button>
-        </td>
-
-      </tr>
-    `;
-
-  }).join("");
-}
-
-
-function deleteMark(id){
-
-  db.marks=db.marks.filter(m=>m.id!==id);
-
-  save();
-
-  showMarks();
-
-  updateStats();
-
-  toast("🗑️ Mark deleted");
-}
-
-
-/* RESULTS */
-function showResult(){
-
-  const id=Number(
-    document.getElementById("resultStudent").value
-  );
-
-  const box=document.getElementById("resultBox");
-
-  const marks=db.marks.filter(m=>m.studentId===id);
-
-  if(!marks.length){
-
-    box.innerHTML=
-      `<div class="empty">Ardaygan exam record ma leh.</div>`;
-
-    return;
-  }
-
-  const total=marks.reduce(
-    (sum,m)=>sum+Number(m.score),0
-  );
-
-  const avg=(total/marks.length).toFixed(1);
-
-  let grade="F";
-
-  if(avg>=90)grade="A+";
-  else if(avg>=80)grade="A";
-  else if(avg>=70)grade="B";
-  else if(avg>=60)grade="C";
-  else if(avg>=50)grade="D";
-
-  box.innerHTML=`
-
-    <div class="card" style="margin-top:15px">
-
-      <h2>🏆 Result</h2>
-
-      <h3>Average: ${avg}%</h3>
-
-      <h3>Grade: ${grade}</h3>
-
-      <hr style="margin:15px 0;border:0;border-top:1px solid #ddd">
-
-      ${marks.map(m=>`
-        <div class="item">
-          <span>${esc(m.subject)}</span>
-          <b>${m.score}/100</b>
-        </div>
-      `).join("")}
-
-    </div>
-
-  `;
-}
-
-
-/* FEES */
-function addFee(){
-
-  const studentId=Number(
-    document.getElementById("feeStudent").value
-  );
-
-  const amount=Number(
-    document.getElementById("feeAmount").value
-  );
-
-  const note=
-    document.getElementById("feeNote").value;
-
-  if(!studentId || !amount){
-
-    toast("❌ Buuxi student iyo amount");
-
-    return;
-  }
-
-  db.fees.push({
-    id:Date.now(),
-    studentId,
-    amount,
-    note,
-    date:new Date().toLocaleDateString()
-  });
-
-  save();
-
-  document.getElementById("feeAmount").value="";
-  document.getElementById("feeNote").value="";
-
-  toast("✅ Payment waa la kaydiyay");
-
-  showFees();
-
-  updateStats();
-}
-
-
-function showFees(){
-
-  const box=document.getElementById("feeList");
-
-  if(!db.fees.length){
-
-    box.innerHTML=
-      `<div class="empty">Payment ma jiro.</div>`;
-
-    return;
-  }
-
-  box.innerHTML=db.fees.slice().reverse().map(f=>{
-
-    const s=db.students.find(x=>x.id===f.studentId);
-
-    return `
-
-      <div class="item">
-
-        <div>
-          <b>${esc(s?.name || "Unknown")}</b>
-          <small>${esc(f.note || "")}</small>
-          <small>${f.date}</small>
-        </div>
-
-        <b>$${Number(f.amount).toLocaleString()}</b>
-
-        <button
-          class="btn red"
-          onclick="deleteFee(${f.id})">
-          X
-        </button>
-
-      </div>
-
-    `;
-
-  }).join("");
-}
-
-
-function deleteFee(id){
-
-  db.fees=db.fees.filter(f=>f.id!==id);
-
-  save();
-
-  showFees();
-
-  updateStats();
-
-  toast("🗑️ Payment deleted");
-}
-
-
-/* STATS */
-function updateStats(){
-
-  document.getElementById("totalStudents")
-    .textContent=db.students.length;
-
-  document.getElementById("totalMarks")
-    .textContent=db.marks.length;
-
-  const total=db.fees.reduce(
-    (sum,f)=>sum+Number(f.amount),0
-  );
-
-  document.getElementById("totalFees")
-    .textContent=total.toLocaleString();
-
-  const date=new Date().toISOString().slice(0,10);
-
-  let present=0;
-
-  db.students.forEach(s=>{
-    if(db.attendance[date+"_"+s.id]==="P"){
-      present++;
+    if(!students.length){
+        box.innerHTML='<div class="empty">Marka hore ku dar arday.</div>';
+        return;
     }
-  });
 
-  document.getElementById("presentToday")
-    .textContent=present;
+    const date=document.getElementById("attendanceDate").value ||
+                 new Date().toISOString().slice(0,10);
+
+    document.getElementById("attendanceDate").value=date;
+
+    const saved=attendance[date] || {};
+
+    box.innerHTML=students.map(s=>{
+
+        const status=saved[s.id] || "present";
+
+        return `
+        <div class="att-row">
+
+            <strong>${escapeHTML(s.name)}</strong>
+
+            <span>${escapeHTML(s.className)}</span>
+
+            <div class="status">
+
+                <button
+                class="present"
+                onclick="setAttendance(${s.id},'present')"
+                style="opacity:${status==='present'?1:.45}">
+                P
+                </button>
+
+                <button
+                class="late"
+                onclick="setAttendance(${s.id},'late')"
+                style="opacity:${status==='late'?1:.45}">
+                L
+                </button>
+
+                <button
+                class="absent"
+                onclick="setAttendance(${s.id},'absent')"
+                style="opacity:${status==='absent'?1:.45}">
+                A
+                </button>
+
+            </div>
+
+        </div>
+        `;
+    }).join("");
 }
 
+function setAttendance(id,status){
 
-/* SECURITY / HTML TEXT */
-function esc(value){
+    const date=document.getElementById("attendanceDate").value;
 
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+    if(!attendance[date]) attendance[date]={};
+
+    attendance[date][id]=status;
+
+    saveData();
+    renderAttendance();
+    updateDashboard();
 }
 
+function saveAttendance(){
 
-/* REFRESH */
-function refresh(){
-
-  updateStats();
-  showStudents();
-  fillStudentSelects();
-  showMarks();
-  showFees();
-
-  if(document.getElementById("attDate").value===""){
-    document.getElementById("attDate").value=
-      new Date().toISOString().slice(0,10);
-  }
-
-  showAttendance();
-
-  if(db.students.length){
-    showResult();
-  }
+    saveData();
+    toast("✅ Attendance waa la kaydiyey");
 }
 
+document.getElementById("attendanceDate").addEventListener("change",renderAttendance);
 
-/* START */
-refresh();
+function renderExamStudents(){
 
-</
+    const select=document.getElementById("examStudent");
+
+    select.innerHTML=students.map(s=>
+        `<option value="${s.id}">${escapeHTML(s.name)}</option>`
+    ).join("");
+}
+
+function saveExam(){
+
+    const id=Number(document.getElementById("examStudent").value);
+
+    if(!id){
+        toast("⚠️ Marka hore dooro arday");
+        return;
+    }
+
+    const marks={
+        math:Number(document.getElementById("math").value)||0,
+        english:Number(document.getElementById("english").value)||0,
+        science:Number(document.getElementById("science").value)||0,
+        somali:Number(document.getElementById("somali").value)||0
+    };
+
+    const total=
+        marks.math+
+        marks.english+
+        marks.science+
+        marks.somali;
+
+    const average=total/4;
+
+    let grade="F";
+
+    if(average>=90) grade="A";
+    else if(average>=80) grade="B";
+    else if(average>=70) grade="C";
+    else if(average>=60) grade="D";
+
+    exams.push({
+        id:Date.now(),
+        studentId:id,
+        ...marks,
+        total,
+        average,
+        grade,
+        date:new Date().toISOString().slice(0,10)
+    });
+
+    saveData();
+
+    document.getElementById("math").value="";
+    document.getElementById("english").value="";
+    document.getElementById("science").value="";
+    document.getElementById("somali").value="";
+
+    updateDashboard();
+
+    toast("✅ Marks waa la kaydiyey");
+}
+
+function renderResults(){
+
+    const box=document.getElementById("resultsList");
+
+    if(!exams.length){
+        box.innerHTML='<div class="empty">Weli exam lama kaydin.</div>';
+        return;
+    }
+
+    box.innerHTML=exams.slice().reverse().map(e=>{
+
+        const s=students.find(x=>x.id===e.studentId);
+
+        return `
+        <div class="result">
+
+            <strong>${s ? escapeHTML(s.name) : "Unknown Student"}</strong>
+
+            <p>Math: ${e.math}</p>
+            <p>English: ${e.english}</p>
+            <p>Science: ${e.science}</p>
+            <p>Somali: ${e.somali}</p>
+
+            <hr style="border-color:rgba(255,255,255,.1);margin:8px 0">
+
+            <p>Total: <b>${e.total}/400</b></p>
+            <p>Average: <b>${e.average.toFixed(1)}%</b></p>
+            <p>Grade: <span class="grade">${e.grade}</span></p>
+
+        </div>
+        `;
+    }).join("");
+}
+
+function updateDashboard(){
+
+    document.getElementById("totalStudents").textContent=students.length;
+
+    let present=0;
+    let absent=0;
+
+    Object.values(attendance).forEach(day=>{
+
+        Object.values(day).forEach(status=>{
+
+            if(status==="present") present++;
+            if(status==="absent") absent++;
+
+        });
+
+    });
+
+    document.getElementById("totalPresent").textContent=present;
+    document.getElementById("totalAbsent").textContent=absent;
+    document.getElementById("totalExams").textContent=exams.length;
+}
+
+function updateClock(){
+
+    const now=new Date();
+
+    document.getElementById("clock").textContent=
+        now.toLocaleDateString("so-SO")+" • "+
+        now.toLocaleTimeString("so-SO",{
+            hour:"2-digit",
+            minute:"2-digit"
+        });
+}
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+updateClock();
+setInterval(updateClock,1000);
+
+updateDashboard();
+
+</script>
+
+</body>
+</html>
