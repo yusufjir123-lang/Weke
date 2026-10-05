@@ -1,235 +1,1439 @@
  <!DOCTYPE html>
-<html lang="en">
+<html lang="so">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>Wamo Primary School</title>
+
 <style>
-:root{--bg:#F1F5F7;--card:#fff;--ink:#14232B;--mute:#5B6B73;--line:#D7E0E4;--teal:#0E6E73;--gold:#F2A900;--red:#C8432B;--green:#2E7D4F}
-*{box-sizing:border-box}
-html,body{margin:0;height:100%}
-body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);padding-top:env(safe-area-inset-top)}
-header{background:var(--teal);color:#fff;padding:14px 16px}
-header b{font-size:19px;display:block}
-header span{font-size:12px;opacity:.85}
-main{padding:14px 14px 90px;max-width:720px;margin:auto}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#fff;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-nav button{flex:1;border:0;background:none;padding:13px 2px;font-size:12px;color:var(--mute);border-top:3px solid transparent}
-nav button.on{color:var(--teal);font-weight:700;border-top-color:var(--gold)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px}
-h2{font-size:17px;margin:0 0 10px}
-label{display:block;font-size:13px;color:var(--mute);margin:8px 0 3px}
-input,select{width:100%;padding:10px;font-size:15px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
-input:focus,select:focus,button:focus-visible{outline:2px solid var(--teal);outline-offset:1px}
-.row{display:flex;gap:8px}.row>*{flex:1}
-.btn{background:var(--teal);color:#fff;border:0;border-radius:8px;padding:11px 14px;font-size:15px;font-weight:600;margin-top:10px}
-.btn.alt{background:#fff;color:var(--teal);border:1px solid var(--teal)}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-.stat{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px}
-.stat b{font-size:26px;display:block}.stat span{font-size:13px;color:var(--mute)}
-.item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
-.item:last-child{border:0}
-.item small{display:block;color:var(--mute);font-size:12px}
-.x{background:none;border:0;color:var(--red);font-size:20px;padding:4px 8px}
-.pa{display:flex;gap:6px}
-.pa button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;font-weight:700;color:var(--mute)}
-.pa .p.on{background:var(--green);color:#fff;border-color:var(--green)}
-.pa .l.on{background:var(--gold);color:var(--ink);border-color:var(--gold)}
-.pa .a.on{background:var(--red);color:#fff;border-color:var(--red)}
-.score{width:80px;text-align:center}
-.ct{width:100%;border-collapse:collapse;font-size:15px}
-.ct th{text-align:right;font-size:13px;color:var(--mute);font-weight:600;padding:6px 4px;border-bottom:1px solid var(--line)}
-.ct td{text-align:right;padding:9px 4px;border-bottom:1px solid var(--line)}
-.ct th:first-child,.ct td:first-child{text-align:left}
-.ct .tt td{font-weight:700;border-bottom:0;background:var(--bg)}
-.empty{color:var(--mute);font-size:14px;padding:6px 0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --main:#087f8c;
+  --dark:#073b4c;
+  --bg:#eef5f7;
+  --card:#fff;
+  --text:#17323a;
+  --muted:#71838a;
+  --green:#2e9b61;
+  --red:#d64545;
+  --gold:#e9a825;
+  --line:#d9e4e8;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#eaf7f8,#f4f7fb);
+  color:var(--text);
+  min-height:100vh;
+}
+
+/* HEADER */
+header{
+  background:linear-gradient(135deg,var(--dark),var(--main));
+  color:white;
+  padding:18px;
+  box-shadow:0 5px 20px #0002;
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+.header{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.logoIcon{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  background:white;
+  color:var(--main);
+  display:grid;
+  place-items:center;
+  font-size:24px;
+  font-weight:bold;
+}
+
+.logo h1{
+  font-size:20px;
+}
+
+.logo small{
+  opacity:.8;
+}
+
+/* NAV */
+nav{
+  max-width:1100px;
+  margin:15px auto;
+  padding:0 15px;
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+}
+
+nav button{
+  border:0;
+  background:white;
+  color:var(--dark);
+  padding:12px 16px;
+  border-radius:12px;
+  white-space:nowrap;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 3px 12px #0001;
+  transition:.25s;
+}
+
+nav button:hover,
+nav button.active{
+  background:var(--main);
+  color:white;
+  transform:translateY(-2px);
+}
+
+/* MAIN */
+main{
+  max-width:1100px;
+  margin:auto;
+  padding:10px 15px 50px;
+}
+
+.page{
+  display:none;
+  animation:show .35s ease;
+}
+
+.page.active{
+  display:block;
+}
+
+@keyframes show{
+  from{
+    opacity:0;
+    transform:translateY(15px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* CARDS */
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:15px;
+  box-shadow:0 8px 25px #0000000b;
+}
+
+.card h2{
+  color:var(--dark);
+  margin-bottom:15px;
+}
+
+/* DASHBOARD */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.stat{
+  color:white;
+  padding:20px;
+  border-radius:18px;
+  min-height:120px;
+  transition:.25s;
+}
+
+.stat:hover{
+  transform:translateY(-5px);
+}
+
+.stat:nth-child(1){background:#087f8c}
+.stat:nth-child(2){background:#2e9b61}
+.stat:nth-child(3){background:#e9a825}
+.stat:nth-child(4){background:#7b61a8}
+
+.stat b{
+  display:block;
+  font-size:32px;
+  margin-top:15px;
+}
+
+.stat span{
+  font-size:14px;
+}
+
+/* FORMS */
+label{
+  display:block;
+  margin:10px 0 5px;
+  font-weight:bold;
+  font-size:14px;
+}
+
+input,select{
+  width:100%;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  outline:none;
+  font-size:15px;
+  background:white;
+}
+
+input:focus,select:focus{
+  border-color:var(--main);
+  box-shadow:0 0 0 3px #087f8c18;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+button{
+  cursor:pointer;
+}
+
+.btn{
+  border:0;
+  background:var(--main);
+  color:white;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:bold;
+  margin-top:12px;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:scale(1.03);
+}
+
+.btn.red{
+  background:var(--red);
+}
+
+.btn.green{
+  background:var(--green);
+}
+
+.btn.gold{
+  background:var(--gold);
+  color:#222;
+}
+
+/* STUDENTS */
+.search{
+  margin-bottom:15px;
+}
+
+.students{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.student{
+  background:white;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:15px;
+  transition:.25s;
+}
+
+.student:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 25px #0002;
+}
+
+.photo{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  object-fit:cover;
+  display:block;
+  margin:auto auto 10px;
+  border:4px solid #e5f2f4;
+}
+
+.student h3{
+  text-align:center;
+  margin-bottom:5px;
+}
+
+.student p{
+  color:var(--muted);
+  text-align:center;
+  font-size:13px;
+  margin:3px;
+}
+
+.actions{
+  display:flex;
+  gap:6px;
+  margin-top:10px;
+}
+
+.actions button{
+  flex:1;
+  border:0;
+  border-radius:8px;
+  padding:9px 4px;
+  font-weight:bold;
+}
+
+/* ATTENDANCE */
+.attRow{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.attBtns{
+  display:flex;
+  gap:5px;
+}
+
+.attBtns button{
+  border:0;
+  padding:8px 10px;
+  border-radius:8px;
+  font-weight:bold;
+}
+
+.present{
+  background:#d9f5e4;
+  color:#187343;
+}
+
+.late{
+  background:#fff0bd;
+  color:#9a7100;
+}
+
+.absent{
+  background:#ffdede;
+  color:#a62222;
+}
+
+.selected{
+  outline:3px solid #0002;
+}
+
+/* TABLE */
+.tableWrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,td{
+  padding:11px;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+}
+
+th{
+  background:#edf7f8;
+}
+
+/* PROFILE */
+.profile{
+  text-align:center;
+}
+
+.bigPhoto{
+  width:130px;
+  height:130px;
+  object-fit:cover;
+  border-radius:50%;
+  border:6px solid #e3f4f5;
+}
+
+/* EMPTY */
+.empty{
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+}
+
+/* TOAST */
+#toast{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  background:#17323a;
+  color:white;
+  padding:13px 18px;
+  border-radius:12px;
+  display:none;
+  z-index:100;
+  animation:toast .3s;
+}
+
+@keyframes toast{
+  from{
+    transform:translateY(20px);
+    opacity:0;
+  }
+  to{
+    transform:translateY(0);
+    opacity:1;
+  }
+}
+
+/* MOBILE */
+@media(max-width:800px){
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .students{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:550px){
+  .row{
+    grid-template-columns:1fr;
+  }
+
+  .students{
+    grid-template-columns:1fr;
+  }
+
+  .header{
+    align-items:flex-start;
+  }
+
+  .logo h1{
+    font-size:17px;
+  }
+
+  nav{
+    scrollbar-width:none;
+  }
+}
 </style>
 </head>
+
 <body>
-<header><b>Wamo Primary School</b><span>School Management Information System</span></header>
-<main id="app"></main>
-<nav id="nav"></nav>
+
+<header>
+  <div class="header">
+    <div class="logo">
+      <div class="logoIcon">W</div>
+      <div>
+        <h1>Wamo Primary School</h1>
+        <small>School Management System</small>
+      </div>
+    </div>
+    <div id="date"></div>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="page('home',this)">🏠 Home</button>
+  <button onclick="page('students',this)">👨‍🎓 Students</button>
+  <button onclick="page('add',this)">➕ Add Student</button>
+  <button onclick="page('attendance',this)">📋 Attendance</button>
+  <button onclick="page('marks',this)">📝 Exams</button>
+  <button onclick="page('fees',this)">💰 Fees</button>
+  <button onclick="page('results',this)">🏆 Results</button>
+</nav>
+
+<main>
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+  <div class="stats">
+    <div class="stat">
+      👨‍🎓
+      <b id="totalStudents">0</b>
+      <span>Total Students</span>
+    </div>
+
+    <div class="stat">
+      📋
+      <b id="presentToday">0</b>
+      <span>Present Today</span>
+    </div>
+
+    <div class="stat">
+      📝
+      <b id="totalMarks">0</b>
+      <span>Exam Records</span>
+    </div>
+
+    <div class="stat">
+      💰
+      <b id="totalFees">0</b>
+      <span>Total Fees</span>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:15px">
+    <h2>📊 School Dashboard</h2>
+    <p>
+      Ku soo dhawoow Wamo Primary School Management System.
+      Xogta aad geliso browser-ka ayaa lagu kaydinayaa telefoonkaaga.
+    </p>
+  </div>
+
+</section>
+
+
+<!-- STUDENTS -->
+<section id="students" class="page">
+
+  <div class="card">
+    <h2>👨‍🎓 Students</h2>
+
+    <input
+      class="search"
+      id="search"
+      placeholder="🔎 Raadi magaca ardayga..."
+      oninput="showStudents()"
+    >
+
+    <div id="studentList" class="students"></div>
+  </div>
+
+</section>
+
+
+<!-- ADD STUDENT -->
+<section id="add" class="page">
+
+  <div class="card">
+    <h2>➕ Geli Arday Cusub</h2>
+
+    <div class="row">
+
+      <div>
+        <label>Magaca ardayga</label>
+        <input id="sName" placeholder="Tusaale: Ahmed Ali">
+      </div>
+
+      <div>
+        <label>Class</label>
+        <select id="sClass">
+          <option>Class 1</option>
+          <option>Class 2</option>
+          <option>Class 3</option>
+          <option>Class 4</option>
+          <option>Class 5</option>
+          <option>Class 6</option>
+          <option>Class 7</option>
+          <option>Class 8</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Username</label>
+        <input id="sUser" placeholder="student01">
+      </div>
+
+      <div>
+        <label>Password</label>
+        <input id="sPass" type="password" placeholder="Password">
+      </div>
+
+      <div>
+        <label>Phone</label>
+        <input id="sPhone" placeholder="61xxxxxxx">
+      </div>
+
+      <div>
+        <label>Da'da</label>
+        <input id="sAge" type="number" placeholder="10">
+      </div>
+
+    </div>
+
+    <label>Sawirka ardayga</label>
+    <input id="sPhoto" type="file" accept="image/*">
+
+    <button class="btn green" onclick="addStudent()">
+      💾 Kaydi Ardayga
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ATTENDANCE -->
+<section id="attendance" class="page">
+
+  <div class="card">
+    <h2>📋 Attendance</h2>
+
+    <div class="row">
+      <div>
+        <label>Class</label>
+        <select id="attClass" onchange="showAttendance()">
+          <option>Class 1</option>
+          <option>Class 2</option>
+          <option>Class 3</option>
+          <option>Class 4</option>
+          <option>Class 5</option>
+          <option>Class 6</option>
+          <option>Class 7</option>
+          <option>Class 8</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Taariikh</label>
+        <input id="attDate" type="date" onchange="showAttendance()">
+      </div>
+    </div>
+
+    <div id="attendanceList"></div>
+
+  </div>
+
+</section>
+
+
+<!-- MARKS -->
+<section id="marks" class="page">
+
+  <div class="card">
+    <h2>📝 Exam / Marks</h2>
+
+    <label>Ardayga</label>
+    <select id="markStudent"></select>
+
+    <div class="row">
+
+      <div>
+        <label>Subject</label>
+        <select id="subject">
+          <option>Mathematics</option>
+          <option>English</option>
+          <option>Science</option>
+          <option>Somali</option>
+          <option>Arabic</option>
+          <option>Islamic Studies</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Exam</label>
+        <select id="term">
+          <option>Term 1</option>
+          <option>Term 2</option>
+          <option>Term 3</option>
+        </select>
+      </div>
+
+    </div>
+
+    <label>Score /100</label>
+    <input id="score" type="number" min="0" max="100">
+
+    <button class="btn" onclick="addMark()">
+      💾 Kaydi Mark
+    </button>
+
+  </div>
+
+  <div class="card">
+    <h2>📚 Exam Records</h2>
+    <div class="tableWrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Subject</th>
+            <th>Term</th>
+            <th>Score</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="markTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- FEES -->
+<section id="fees" class="page">
+
+  <div class="card">
+    <h2>💰 School Fees</h2>
+
+    <label>Ardayga</label>
+    <select id="feeStudent"></select>
+
+    <label>Amount</label>
+    <input id="feeAmount" type="number" placeholder="Amount">
+
+    <label>Note</label>
+    <input id="feeNote" placeholder="Tusaale: January fee">
+
+    <button class="btn green" onclick="addFee()">
+      💾 Record Payment
+    </button>
+
+  </div>
+
+  <div class="card">
+    <h2>💳 Payment Records</h2>
+    <div id="feeList"></div>
+  </div>
+
+</section>
+
+
+<!-- RESULTS -->
+<section id="results" class="page">
+
+  <div class="card">
+    <h2>🏆 Student Results</h2>
+
+    <label>Dooro arday</label>
+    <select id="resultStudent" onchange="showResult()"></select>
+
+    <div id="resultBox"></div>
+  </div>
+
+</section>
+
+
+<!-- PROFILE -->
+<section id="profile" class="page">
+
+  <div class="card profile">
+    <img id="profilePhoto" class="bigPhoto">
+
+    <h2 id="profileName"></h2>
+
+    <p id="profileInfo"></p>
+
+    <div id="profileMarks" style="margin-top:20px"></div>
+  </div>
+
+</section>
+
+</main>
+
+<div id="toast"></div>
+
+
 <script>
-const CLASSES=["Class 1","Class 2","Class 3","Class 4","Class 5","Class 6","Class 7","Class 8"];
-const SUBJECTS=["Mathematics","English","Kiswahili","Science","Social Studies","Religious Education"];
-const TERMS=["Term 1","Term 2","Term 3"];
-const TABS=[["home","Home"],["pupils","Pupils"],["attend","Attendance"],["marks","Marks"],["fees","Fees"],["teachers","Staff"]];
-const today=()=>new Date().toISOString().slice(0,10);
-const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
-const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const empty=()=>({pupils:[],teachers:[],att:{},tatt:{},marks:[],fees:[]});
-let db;
-try{db=JSON.parse(localStorage.getItem("wamo_emis"))||empty()}catch(e){db=empty()}
-const save=()=>{try{localStorage.setItem("wamo_emis",JSON.stringify(db))}catch(e){alert("Could not save data on this device.")}};
-db.tatt=db.tatt||{};
-const ui={tab:"home",tdate:today(),tmonth:today().slice(0,7),cls:CLASSES[0],date:today(),subj:SUBJECTS[0],term:TERMS[0],q:""};
-const $=s=>document.querySelector(s);
-const opts=(arr,sel)=>arr.map(a=>`<option ${a===sel?"selected":""}>${esc(a)}</option>`).join("");
-const pupilName=id=>{const p=db.pupils.find(x=>x.id===id);return p?p.name:"(removed)"};
-const money=n=>Number(n).toLocaleString();
+/* =========================
+   WAMO PRIMARY SCHOOL
+   JAVASCRIPT
+========================= */
 
-function go(t){ui.tab=t;render()}
-function render(){
-  $("#nav").innerHTML=TABS.map(([k,l])=>`<button class="${ui.tab===k?"on":""}" onclick="go('${k}')">${l}</button>`).join("");
-  $("#app").innerHTML=views[ui.tab]();
-  if(ui.tab==="pupils")listPupils();
-  window.scrollTo(0,0);
+let db={
+  students:[],
+  attendance:{},
+  marks:[],
+  fees:[]
+};
+
+try{
+  const old=localStorage.getItem("wamo_school");
+  if(old){
+    db=JSON.parse(old);
+  }
+}catch(e){
+  console.log(e);
 }
 
-const views={
-home(){
-  const key=today();
-  let present=0,marked=0;
-  Object.keys(db.att).filter(k=>k.startsWith(key+"|")).forEach(k=>Object.values(db.att[k]).forEach(v=>{marked++;if(v==="P")present++}));
-  const tr=db.tatt[key]||{};const tp=db.teachers.filter(t=>tr[t.id]==='P'||tr[t.id]==='L').length;
-  const total=db.fees.reduce((s,f)=>s+Number(f.amount),0);
-  const cnt=(c,x)=>db.pupils.filter(p=>(!c||p.cls===c)&&(!x||p.sex===x)).length;
-  const byClass=`<table class="ct"><tr><th>Class</th><th>Boys</th><th>Girls</th><th>Total</th></tr>`+
-    CLASSES.map(c=>`<tr><td>${c}</td><td>${cnt(c,"Boy")}</td><td>${cnt(c,"Girl")}</td><td><b>${cnt(c)}</b></td></tr>`).join("")+
-    `<tr class="tt"><td>All classes</td><td>${cnt(0,"Boy")}</td><td>${cnt(0,"Girl")}</td><td>${cnt(0)}</td></tr></table>`;
-  return `<div class="stats">
-    <div class="stat"><b>${db.pupils.length}</b><span>Pupils</span></div>
-    <div class="stat"><b>${tp}/${db.teachers.length}</b><span>Staff present today</span></div>
-    <div class="stat"><b>${marked?Math.round(present*100/marked)+"%":"–"}</b><span>Present today</span></div>
-    <div class="stat"><b>${money(total)}</b><span>Fees collected</span></div></div>
-    <div class="card"><h2>Class composition</h2>${byClass}</div>
-    <div class="card"><h2>Backup</h2>
-      <p class="empty">Data is stored on this phone. Copy a backup and keep it somewhere safe.</p>
-      <button class="btn" onclick="backup()">Copy backup</button>
-      <button class="btn alt" onclick="restore()">Restore backup</button></div>`;
-},
-pupils(){
-  return `<div class="card"><h2>Add pupil</h2>
-    <label>Full name</label><input id="pn">
-    <div class="row"><div><label>Class</label><select id="pc">${opts(CLASSES,ui.cls)}</select></div>
-    <div><label>Sex</label><select id="ps"><option>Girl</option><option>Boy</option></select></div></div>
-    <label>Parent or guardian</label><input id="pg">
-    <label>Phone</label><input id="pt" type="tel">
-    <button class="btn" onclick="addPupil()">Save pupil</button></div>
-    <div class="card"><h2>Pupils</h2>
-    <div class="row"><input id="q" placeholder="Search name" oninput="ui.q=this.value;listPupils()" value="${esc(ui.q)}">
-    <select id="fc" onchange="ui.fcls=this.value;listPupils()"><option value="">All classes</option>${opts(CLASSES,ui.fcls)}</select></div>
-    <div id="plist"></div></div>`;
-},
-attend(){
-  const rec=db.att[ui.date+"|"+ui.cls]||{};
-  const ps=db.pupils.filter(p=>p.cls===ui.cls);
-  const rows=ps.map(p=>`<div class="item"><span>${esc(p.name)}</span><div class="pa">
-    <button class="p ${rec[p.id]==="P"?"on":""}" onclick="mark('${p.id}','P')">P</button>
-    <button class="a ${rec[p.id]==="A"?"on":""}" onclick="mark('${p.id}','A')">A</button></div></div>`).join("");
-  const np=Object.values(rec).filter(v=>v==="P").length;
-  return `<div class="card"><h2>Attendance</h2><div class="row">
-    <div><label>Class</label><select onchange="ui.cls=this.value;render()">${opts(CLASSES,ui.cls)}</select></div>
-    <div><label>Date</label><input type="date" value="${ui.date}" onchange="ui.date=this.value;render()"></div></div></div>
-    <div class="card">${rows||'<div class="empty">No pupils in this class yet.</div>'}
-    ${ps.length?`<p class="empty">Present: ${np} of ${ps.length}</p>`:""}</div>`;
-},
-marks(){
-  const ps=db.pupils.filter(p=>p.cls===ui.cls);
-  const get=id=>{const m=db.marks.find(x=>x.pid===id&&x.subject===ui.subj&&x.term===ui.term);return m?m.score:""};
-  const rows=ps.map(p=>`<div class="item"><span>${esc(p.name)}</span>
-    <input class="score" type="number" min="0" max="100" inputmode="numeric" value="${get(p.id)}" onchange="setMark('${p.id}',this.value)"></div>`).join("");
-  const rank=ps.map(p=>{const ms=db.marks.filter(m=>m.pid===p.id&&m.term===ui.term);
-    return {n:p.name,c:ms.length,avg:ms.length?ms.reduce((s,m)=>s+Number(m.score),0)/ms.length:-1}})
-    .filter(r=>r.c).sort((a,b)=>b.avg-a.avg)
-    .map((r,i)=>`<div class="item"><span>${i+1}. ${esc(r.n)}<small>${r.c} subject(s)</small></span><b>${r.avg.toFixed(1)}</b></div>`).join("");
-  return `<div class="card"><h2>Marks</h2><div class="row">
-    <div><label>Class</label><select onchange="ui.cls=this.value;render()">${opts(CLASSES,ui.cls)}</select></div>
-    <div><label>Term</label><select onchange="ui.term=this.value;render()">${opts(TERMS,ui.term)}</select></div></div>
-    <label>Subject</label><select onchange="ui.subj=this.value;render()">${opts(SUBJECTS,ui.subj)}</select></div>
-    <div class="card"><h2>Enter scores (out of 100)</h2>${rows||'<div class="empty">No pupils in this class yet.</div>'}</div>
-    <div class="card"><h2>Class ranking, ${ui.term}</h2>${rank||'<div class="empty">No marks entered yet.</div>'}</div>`;
-},
-fees(){
-  const list=[...db.fees].reverse().slice(0,30).map(f=>`<div class="item"><span>${esc(pupilName(f.pid))}<small>${f.date}${f.note?" · "+esc(f.note):""}</small></span>
-    <span><b>${money(f.amount)}</b><button class="x" onclick="delFee('${f.id}')" aria-label="Delete payment">×</button></span></div>`).join("");
-  return `<div class="card"><h2>Record payment</h2>
-    <label>Pupil</label><select id="fp">${db.pupils.map(p=>`<option value="${p.id}">${esc(p.name)} (${p.cls})</option>`).join("")}</select>
-    <div class="row"><div><label>Amount</label><input id="fa" type="number" inputmode="numeric"></div>
-    <div><label>Note</label><input id="fn" placeholder="Term 1 fees"></div></div>
-    <button class="btn" onclick="addFee()">Save payment</button></div>
-    <div class="card"><h2>Recent payments</h2>${list||'<div class="empty">No payments recorded.</div>'}</div>`;
-},
-teachers(){
-  const list=db.teachers.map(t=>`<div class="item"><span>${esc(t.name)}<small>${esc(t.subject)}${t.phone?" · "+esc(t.phone):""}</small></span>
-    <button class="x" onclick="delTeacher('${t.id}')" aria-label="Delete staff">×</button></div>`).join("");
-  return tAttend()+`<div class="card"><h2>Add staff member</h2>
-    <label>Full name</label><input id="tn"><label>Subject or role</label><input id="ts">
-    <label>Phone</label><input id="tp" type="tel"><button class="btn" onclick="addTeacher()">Save staff</button></div>
-    <div class="card"><h2>Staff list</h2>${list||'<div class="empty">No staff added yet.</div>'}</div>`+tRoll();
-}};
+function save(){
+  localStorage.setItem("wamo_school",JSON.stringify(db));
+}
 
-function addPupil(){
-  const n=$("#pn").value.trim();if(!n){alert("Enter the pupil's name.");return}
-  ui.cls=$("#pc").value;
-  db.pupils.push({id:uid(),name:n,cls:ui.cls,sex:$("#ps").value,guardian:$("#pg").value.trim(),phone:$("#pt").value.trim()});
-  save();render();
+function toast(message){
+  const t=document.getElementById("toast");
+  t.textContent=message;
+  t.style.display="block";
+
+  setTimeout(()=>{
+    t.style.display="none";
+  },2000);
 }
-function listPupils(){
-  const q=ui.q.toLowerCase();
-  const ps=db.pupils.filter(p=>(!ui.fcls||p.cls===ui.fcls)&&p.name.toLowerCase().includes(q)).sort((a,b)=>a.name.localeCompare(b.name));
-  $("#plist").innerHTML=ps.map(p=>`<div class="item"><span>${esc(p.name)}<small>${p.cls} · ${p.sex}${p.guardian?" · "+esc(p.guardian):""}${p.phone?" · "+esc(p.phone):""}</small></span>
-    <button class="x" onclick="delPupil('${p.id}')" aria-label="Delete pupil">×</button></div>`).join("")||'<div class="empty">No pupils found.</div>';
+
+function page(id,btn){
+
+  document.querySelectorAll(".page")
+    .forEach(x=>x.classList.remove("active"));
+
+  document.getElementById(id)
+    .classList.add("active");
+
+  document.querySelectorAll("nav button")
+    .forEach(x=>x.classList.remove("active"));
+
+  if(btn) btn.classList.add("active");
+
+  refresh();
 }
-function delPupil(id){
-  if(!confirm("Delete this pupil and their marks and payments?"))return;
-  db.pupils=db.pupils.filter(p=>p.id!==id);db.marks=db.marks.filter(m=>m.pid!==id);db.fees=db.fees.filter(f=>f.pid!==id);
-  save();render();
+
+
+/* DATE */
+document.getElementById("date").textContent=
+new Date().toLocaleDateString("en-GB");
+
+
+/* ADD STUDENT */
+function addStudent(){
+
+  const name=document.getElementById("sName").value.trim();
+  const cls=document.getElementById("sClass").value;
+  const username=document.getElementById("sUser").value.trim();
+  const password=document.getElementById("sPass").value;
+  const phone=document.getElementById("sPhone").value;
+  const age=document.getElementById("sAge").value;
+  const file=document.getElementById("sPhoto").files[0];
+
+  if(!name){
+    toast("❌ Magaca ardayga geli");
+    return;
+  }
+
+  const student={
+    id:Date.now(),
+    name,
+    cls,
+    username,
+    password,
+    phone,
+    age,
+    photo:""
+  };
+
+  if(file){
+
+    const reader=new FileReader();
+
+    reader.onload=function(e){
+
+      student.photo=e.target.result;
+
+      db.students.push(student);
+
+      save();
+
+      clearStudentForm();
+
+      toast("✅ Ardayga waa la kaydiyay");
+
+      refresh();
+    };
+
+    reader.readAsDataURL(file);
+
+  }else{
+
+    db.students.push(student);
+
+    save();
+
+    clearStudentForm();
+
+    toast("✅ Ardayga waa la kaydiyay");
+
+    refresh();
+  }
 }
-function mark(id,v){
-  const k=ui.date+"|"+ui.cls;db.att[k]=db.att[k]||{};
-  db.att[k][id]=db.att[k][id]===v?undefined:v;if(!db.att[k][id])delete db.att[k][id];
-  save();render();
+
+
+function clearStudentForm(){
+
+  document.getElementById("sName").value="";
+  document.getElementById("sUser").value="";
+  document.getElementById("sPass").value="";
+  document.getElementById("sPhone").value="";
+  document.getElementById("sAge").value="";
+  document.getElementById("sPhoto").value="";
 }
-function setMark(pid,val){
-  db.marks=db.marks.filter(m=>!(m.pid===pid&&m.subject===ui.subj&&m.term===ui.term));
-  if(val!==""){const s=Math.max(0,Math.min(100,Number(val)));db.marks.push({pid,subject:ui.subj,term:ui.term,score:s})}
+
+
+/* STUDENTS */
+function showStudents(){
+
+  const box=document.getElementById("studentList");
+  const search=
+    (document.getElementById("search")?.value || "")
+    .toLowerCase();
+
+  const list=db.students.filter(s=>
+    s.name.toLowerCase().includes(search)
+  );
+
+  if(!list.length){
+
+    box.innerHTML=
+      `<div class="empty">Arday lama helin.</div>`;
+
+    return;
+  }
+
+  box.innerHTML=list.map(s=>`
+
+    <div class="student">
+
+      <img
+        class="photo"
+        src="${s.photo || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2280%22 height=%2280%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23dfecef%22/%3E%3Ctext x=%2250%25%22 y=%2255%25%22 text-anchor=%22middle%22 font-size=%2230%22%3E👤%3C/text%3E%3C/svg%3E'}"
+      >
+
+      <h3>${esc(s.name)}</h3>
+
+      <p>Class: ${esc(s.cls)}</p>
+      <p>Username: ${esc(s.username || "-")}</p>
+      <p>Phone: ${esc(s.phone || "-")}</p>
+
+      <div class="actions">
+
+        <button
+          class="btn"
+          onclick="profile(${s.id})">
+          Profile
+        </button>
+
+        <button
+          class="btn red"
+          onclick="deleteStudent(${s.id})">
+          Delete
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+}
+
+
+function deleteStudent(id){
+
+  if(!confirm("Ma hubtaa inaad tirtirayso ardaygan?"))
+    return;
+
+  db.students=db.students.filter(s=>s.id!==id);
+
+  db.marks=db.marks.filter(m=>m.studentId!==id);
+
+  db.fees=db.fees.filter(f=>f.studentId!==id);
+
   save();
+
+  toast("🗑️ Ardayga waa la tirtiray");
+
+  refresh();
 }
+
+
+/* PROFILE */
+function profile(id){
+
+  const s=db.students.find(x=>x.id===id);
+
+  if(!s)return;
+
+  document.querySelectorAll(".page")
+    .forEach(x=>x.classList.remove("active"));
+
+  document.getElementById("profile")
+    .classList.add("active");
+
+  document.querySelectorAll("nav button")
+    .forEach(x=>x.classList.remove("active"));
+
+  document.getElementById("profilePhoto").src=
+    s.photo || "";
+
+  document.getElementById("profileName")
+    .textContent=s.name;
+
+  document.getElementById("profileInfo")
+    .innerHTML=
+    `Class: ${esc(s.cls)}<br>
+     Username: ${esc(s.username || "-")}<br>
+     Phone: ${esc(s.phone || "-")}<br>
+     Age: ${esc(s.age || "-")}`;
+
+  const marks=db.marks.filter(m=>m.studentId===id);
+
+  document.getElementById("profileMarks").innerHTML=
+    marks.length
+    ? `<h3>Exam Results</h3>
+       ${marks.map(m=>
+       `<p>${esc(m.subject)}: <b>${m.score}/100</b></p>`
+       ).join("")}`
+    : "<p>No exam records.</p>";
+}
+
+
+/* ATTENDANCE */
+function showAttendance(){
+
+  const cls=document.getElementById("attClass").value;
+  const date=document.getElementById("attDate").value;
+
+  const box=document.getElementById("attendanceList");
+
+  const students=db.students.filter(s=>s.cls===cls);
+
+  if(!students.length){
+
+    box.innerHTML=
+      `<div class="empty">
+        Class-kan arday kuma jiraan.
+      </div>`;
+
+    return;
+  }
+
+  box.innerHTML=students.map(s=>{
+
+    const key=date+"_"+s.id;
+
+    const status=db.attendance[key] || "";
+
+    return `
+
+      <div class="attRow">
+
+        <b>${esc(s.name)}</b>
+
+        <div class="attBtns">
+
+          <button
+            class="present ${status==="P"?"selected":""}"
+            onclick="attendance(${s.id},'P')">
+            P
+          </button>
+
+          <button
+            class="late ${status==="L"?"selected":""}"
+            onclick="attendance(${s.id},'L')">
+            L
+          </button>
+
+          <button
+            class="absent ${status==="A"?"selected":""}"
+            onclick="attendance(${s.id},'A')">
+            A
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }).join("");
+}
+
+
+function attendance(id,status){
+
+  const date=document.getElementById("attDate").value;
+
+  if(!date){
+    toast("❌ Taariikh dooro");
+    return;
+  }
+
+  db.attendance[date+"_"+id]=status;
+
+  save();
+
+  showAttendance();
+
+  toast("✅ Attendance waa la kaydiyay");
+}
+
+
+/* MARKS */
+function fillStudentSelects(){
+
+  const ids=[
+    "markStudent",
+    "feeStudent",
+    "resultStudent"
+  ];
+
+  ids.forEach(id=>{
+
+    const el=document.getElementById(id);
+
+    if(!el)return;
+
+    el.innerHTML=db.students.map(s=>
+      `<option value="${s.id}">
+        ${esc(s.name)} - ${esc(s.cls)}
+      </option>`
+    ).join("");
+
+  });
+}
+
+
+function addMark(){
+
+  const studentId=Number(
+    document.getElementById("markStudent").value
+  );
+
+  const subject=
+    document.getElementById("subject").value;
+
+  const term=
+    document.getElementById("term").value;
+
+  const score=Number(
+    document.getElementById("score").value
+  );
+
+  if(!studentId || isNaN(score)){
+    toast("❌ Xogta buuxi");
+    return;
+  }
+
+  if(score<0 || score>100){
+    toast("❌ Score waa 0 ilaa 100");
+    return;
+  }
+
+  db.marks.push({
+    id:Date.now(),
+    studentId,
+    subject,
+    term,
+    score
+  });
+
+  save();
+
+  document.getElementById("score").value="";
+
+  toast("✅ Mark waa la kaydiyay");
+
+  showMarks();
+  updateStats();
+}
+
+
+function showMarks(){
+
+  const box=document.getElementById("markTable");
+
+  if(!db.marks.length){
+
+    box.innerHTML=
+      `<tr><td colspan="5">No records</td></tr>`;
+
+    return;
+  }
+
+  box.innerHTML=db.marks.map(m=>{
+
+    const s=db.students.find(x=>x.id===m.studentId);
+
+    return `
+      <tr>
+
+        <td>${esc(s?.name || "Unknown")}</td>
+
+        <td>${esc(m.subject)}</td>
+
+        <td>${esc(m.term)}</td>
+
+        <td><b>${m.score}/100</b></td>
+
+        <td>
+          <button
+            class="btn red"
+            onclick="deleteMark(${m.id})">
+            X
+          </button>
+        </td>
+
+      </tr>
+    `;
+
+  }).join("");
+}
+
+
+function deleteMark(id){
+
+  db.marks=db.marks.filter(m=>m.id!==id);
+
+  save();
+
+  showMarks();
+
+  updateStats();
+
+  toast("🗑️ Mark deleted");
+}
+
+
+/* RESULTS */
+function showResult(){
+
+  const id=Number(
+    document.getElementById("resultStudent").value
+  );
+
+  const box=document.getElementById("resultBox");
+
+  const marks=db.marks.filter(m=>m.studentId===id);
+
+  if(!marks.length){
+
+    box.innerHTML=
+      `<div class="empty">Ardaygan exam record ma leh.</div>`;
+
+    return;
+  }
+
+  const total=marks.reduce(
+    (sum,m)=>sum+Number(m.score),0
+  );
+
+  const avg=(total/marks.length).toFixed(1);
+
+  let grade="F";
+
+  if(avg>=90)grade="A+";
+  else if(avg>=80)grade="A";
+  else if(avg>=70)grade="B";
+  else if(avg>=60)grade="C";
+  else if(avg>=50)grade="D";
+
+  box.innerHTML=`
+
+    <div class="card" style="margin-top:15px">
+
+      <h2>🏆 Result</h2>
+
+      <h3>Average: ${avg}%</h3>
+
+      <h3>Grade: ${grade}</h3>
+
+      <hr style="margin:15px 0;border:0;border-top:1px solid #ddd">
+
+      ${marks.map(m=>`
+        <div class="item">
+          <span>${esc(m.subject)}</span>
+          <b>${m.score}/100</b>
+        </div>
+      `).join("")}
+
+    </div>
+
+  `;
+}
+
+
+/* FEES */
 function addFee(){
-  const pid=$("#fp").value,a=Number($("#fa").value);
-  if(!pid||!(a>0)){alert("Choose a pupil and enter an amount.");return}
-  db.fees.push({id:uid(),pid,amount:a,date:today(),note:$("#fn").value.trim()});save();render();
+
+  const studentId=Number(
+    document.getElementById("feeStudent").value
+  );
+
+  const amount=Number(
+    document.getElementById("feeAmount").value
+  );
+
+  const note=
+    document.getElementById("feeNote").value;
+
+  if(!studentId || !amount){
+
+    toast("❌ Buuxi student iyo amount");
+
+    return;
+  }
+
+  db.fees.push({
+    id:Date.now(),
+    studentId,
+    amount,
+    note,
+    date:new Date().toLocaleDateString()
+  });
+
+  save();
+
+  document.getElementById("feeAmount").value="";
+  document.getElementById("feeNote").value="";
+
+  toast("✅ Payment waa la kaydiyay");
+
+  showFees();
+
+  updateStats();
 }
-function delFee(id){if(confirm("Delete this payment?")){db.fees=db.fees.filter(f=>f.id!==id);save();render()}}
-function tAttend(){
-  const rec=db.tatt[ui.tdate]||{};
-  const rows=db.teachers.map(t=>`<div class="item"><span>${esc(t.name)}<small>${esc(t.subject)}</small></span><div class="pa">
-    ${["P","L","A"].map(v=>`<button class="${v.toLowerCase()} ${rec[t.id]===v?"on":""}" onclick="tmark('${t.id}','${v}')" aria-label="${{P:"Present",L:"Late",A:"Absent"}[v]}">${v}</button>`).join("")}</div></div>`).join("");
-  return `<div class="card"><h2>Teacher attendance</h2><label>Date</label>
-    <input type="date" value="${ui.tdate}" onchange="ui.tdate=this.value;render()">
-    <p class="empty">P = present, L = late, A = absent. Tap again to clear.</p>
-    ${rows||'<div class="empty">Add staff below to take attendance.</div>'}</div>`;
+
+
+function showFees(){
+
+  const box=document.getElementById("feeList");
+
+  if(!db.fees.length){
+
+    box.innerHTML=
+      `<div class="empty">Payment ma jiro.</div>`;
+
+    return;
+  }
+
+  box.innerHTML=db.fees.slice().reverse().map(f=>{
+
+    const s=db.students.find(x=>x.id===f.studentId);
+
+    return `
+
+      <div class="item">
+
+        <div>
+          <b>${esc(s?.name || "Unknown")}</b>
+          <small>${esc(f.note || "")}</small>
+          <small>${f.date}</small>
+        </div>
+
+        <b>$${Number(f.amount).toLocaleString()}</b>
+
+        <button
+          class="btn red"
+          onclick="deleteFee(${f.id})">
+          X
+        </button>
+
+      </div>
+
+    `;
+
+  }).join("");
 }
-function tmark(id,v){
-  const k=ui.tdate;db.tatt[k]=db.tatt[k]||{};
-  if(db.tatt[k][id]===v)delete db.tatt[k][id];else db.tatt[k][id]=v;
-  if(!Object.keys(db.tatt[k]).length)delete db.tatt[k];
-  save();render();
+
+
+function deleteFee(id){
+
+  db.fees=db.fees.filter(f=>f.id!==id);
+
+  save();
+
+  showFees();
+
+  updateStats();
+
+  toast("🗑️ Payment deleted");
 }
-function tRoll(){
-  const days=Object.keys(db.tatt).filter(d=>d.startsWith(ui.tmonth));
-  const rows=db.teachers.map(t=>{
-    let p=0,l=0,a=0;days.forEach(d=>{const v=db.tatt[d][t.id];if(v==="P")p++;else if(v==="L")l++;else if(v==="A")a++});
-    return `<div class="item"><span>${esc(t.name)}<small>${esc(t.subject)}</small></span><span style="text-align:right"><b>${p+l}</b> present<small>${l} late · ${a} absent</small></span></div>`}).join("");
-  return `<div class="card"><h2>Teachers' roll</h2><label>Month</label>
-    <input type="month" value="${ui.tmonth}" onchange="ui.tmonth=this.value||ui.tmonth;render()">
-    ${rows||'<div class="empty">No staff yet.</div>'}</div>`;
+
+
+/* STATS */
+function updateStats(){
+
+  document.getElementById("totalStudents")
+    .textContent=db.students.length;
+
+  document.getElementById("totalMarks")
+    .textContent=db.marks.length;
+
+  const total=db.fees.reduce(
+    (sum,f)=>sum+Number(f.amount),0
+  );
+
+  document.getElementById("totalFees")
+    .textContent=total.toLocaleString();
+
+  const date=new Date().toISOString().slice(0,10);
+
+  let present=0;
+
+  db.students.forEach(s=>{
+    if(db.attendance[date+"_"+s.id]==="P"){
+      present++;
+    }
+  });
+
+  document.getElementById("presentToday")
+    .textContent=present;
 }
-function addTeacher(){
-  const n=$("#tn").value.trim();if(!n){alert("Enter the staff member's name.");return}
-  db.teachers.push({id:uid(),name:n,subject:$("#ts").value.trim(),phone:$("#tp").value.trim()});save();render();
+
+
+/* SECURITY / HTML TEXT */
+function esc(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 }
-function delTeacher(id){if(confirm("Delete this staff member?")){db.teachers=db.teachers.filter(t=>t.id!==id);save();render()}}
-function backup(){
-  const t=JSON.stringify(db);
-  (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>alert("Backup copied. Paste it into a note or message to keep it.")).catch(()=>prompt("Copy this backup:",t));
+
+
+/* REFRESH */
+function refresh(){
+
+  updateStats();
+  showStudents();
+  fillStudentSelects();
+  showMarks();
+  showFees();
+
+  if(document.getElementById("attDate").value===""){
+    document.getElementById("attDate").value=
+      new Date().toISOString().slice(0,10);
+  }
+
+  showAttendance();
+
+  if(db.students.length){
+    showResult();
+  }
 }
-function restore(){
-  const t=prompt("Paste your backup here:");if(!t)return;
-  try{const d=JSON.parse(t);if(!d.pupils)throw 0;db=Object.assign(empty(),d);db.tatt=db.tatt||{};save();render();alert("Backup restored.")}catch(e){alert("That backup is not valid.")}
-}
-render();
-</script>
-</body>
-</html>
+
+
+/* START */
+refresh();
+
+</
