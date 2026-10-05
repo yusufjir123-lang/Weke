@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wamo Primary School</title>
+<style>
+:root{--bg:#F1F5F7;--card:#fff;--ink:#14232B;--mute:#5B6B73;--line:#D7E0E4;--teal:#0E6E73;--gold:#F2A900;--red:#C8432B;--green:#2E7D4F}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);padding-top:env(safe-area-inset-top)}
+header{background:var(--teal);color:#fff;padding:14px 16px}
+header b{font-size:19px;display:block}
+header span{font-size:12px;opacity:.85}
+main{padding:14px 14px 90px;max-width:720px;margin:auto}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#fff;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;border:0;background:none;padding:13px 2px;font-size:12px;color:var(--mute);border-top:3px solid transparent}
+nav button.on{color:var(--teal);font-weight:700;border-top-color:var(--gold)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px}
+h2{font-size:17px;margin:0 0 10px}
+label{display:block;font-size:13px;color:var(--mute);margin:8px 0 3px}
+input,select{width:100%;padding:10px;font-size:15px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--teal);outline-offset:1px}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.btn{background:var(--teal);color:#fff;border:0;border-radius:8px;padding:11px 14px;font-size:15px;font-weight:600;margin-top:10px}
+.btn.alt{background:#fff;color:var(--teal);border:1px solid var(--teal)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px}
+.stat b{font-size:26px;display:block}.stat span{font-size:13px;color:var(--mute)}
+.item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border:0}
+.item small{display:block;color:var(--mute);font-size:12px}
+.x{background:none;border:0;color:var(--red);font-size:20px;padding:4px 8px}
+.pa{display:flex;gap:6px}
+.pa button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 14px;font-weight:700;color:var(--mute)}
+.pa .p.on{background:var(--green);color:#fff;border-color:var(--green)}
+.pa .l.on{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.pa .a.on{background:var(--red);color:#fff;border-color:var(--red)}
+.score{width:80px;text-align:center}
+.ct{width:100%;border-collapse:collapse;font-size:15px}
+.ct th{text-align:right;font-size:13px;color:var(--mute);font-weight:600;padding:6px 4px;border-bottom:1px solid var(--line)}
+.ct td{text-align:right;padding:9px 4px;border-bottom:1px solid var(--line)}
+.ct th:first-child,.ct td:first-child{text-align:left}
+.ct .tt td{font-weight:700;border-bottom:0;background:var(--bg)}
+.empty{color:var(--mute);font-size:14px;padding:6px 0}
+</style>
+</head>
+<body>
+<header><b>Wamo Primary School</b><span>School Management Information System</span></header>
+<main id="app"></main>
+<nav id="nav"></nav>
+<script>
+const CLASSES=["Class 1","Class 2","Class 3","Class 4","Class 5","Class 6","Class 7","Class 8"];
+const SUBJECTS=["Mathematics","English","Kiswahili","Science","Social Studies","Religious Education"];
+const TERMS=["Term 1","Term 2","Term 3"];
+const TABS=[["home","Home"],["pupils","Pupils"],["attend","Attendance"],["marks","Marks"],["fees","Fees"],["teachers","Staff"]];
+const today=()=>new Date().toISOString().slice(0,10);
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const empty=()=>({pupils:[],teachers:[],att:{},tatt:{},marks:[],fees:[]});
+let db;
+try{db=JSON.parse(localStorage.getItem("wamo_emis"))||empty()}catch(e){db=empty()}
+const save=()=>{try{localStorage.setItem("wamo_emis",JSON.stringify(db))}catch(e){alert("Could not save data on this device.")}};
+db.tatt=db.tatt||{};
+const ui={tab:"home",tdate:today(),tmonth:today().slice(0,7),cls:CLASSES[0],date:today(),subj:SUBJECTS[0],term:TERMS[0],q:""};
+const $=s=>document.querySelector(s);
+const opts=(arr,sel)=>arr.map(a=>`<option ${a===sel?"selected":""}>${esc(a)}</option>`).join("");
+const pupilName=id=>{const p=db.pupils.find(x=>x.id===id);return p?p.name:"(removed)"};
+const money=n=>Number(n).toLocaleString();
+
+function go(t){ui.tab=t;render()}
+function render(){
+  $("#nav").innerHTML=TABS.map(([k,l])=>`<button class="${ui.tab===k?"on":""}" onclick="go('${k}')">${l}</button>`).join("");
+  $("#app").innerHTML=views[ui.tab]();
+  if(ui.tab==="pupils")listPupils();
+  window.scrollTo(0,0);
+}
+
+const views={
+home(){
+  const key=today();
+  let present=0,marked=0;
+  Object.keys(db.att).filter(k=>k.startsWith(key+"|")).forEach(k=>Object.values(db.att[k]).forEach(v=>{marked++;if(v==="P")present++}));
+  const tr=db.tatt[key]||{};const tp=db.teachers.filter(t=>tr[t.id]==='P'||tr[t.id]==='L').length;
+  const total=db.fees.reduce((s,f)=>s+Number(f.amount),0);
+  const cnt=(c,x)=>db.pupils.filter(p=>(!c||p.cls===c)&&(!x||p.sex===x)).length;
+  const byClass=`<table class="ct"><tr><th>Class</th><th>Boys</th><th>Girls</th><th>Total</th></tr>`+
+    CLASSES.map(c=>`<tr><td>${c}</td><td>${cnt(c,"Boy")}</td><td>${cnt(c,"Girl")}</td><td><b>${cnt(c)}</b></td></tr>`).join("")+
+    `<tr class="tt"><td>All classes</td><td>${cnt(0,"Boy")}</td><td>${cnt(0,"Girl")}</td><td>${cnt(0)}</td></tr></table>`;
+  return `<div class="stats">
+    <div class="stat"><b>${db.pupils.length}</b><span>Pupils</span></div>
+    <div class="stat"><b>${tp}/${db.teachers.length}</b><span>Staff present today</span></div>
+    <div class="stat"><b>${marked?Math.round(present*100/marked)+"%":"–"}</b><span>Present today</span></div>
+    <div class="stat"><b>${money(total)}</b><span>Fees collected</span></div></div>
+    <div class="card"><h2>Class composition</h2>${byClass}</div>
+    <div class="card"><h2>Backup</h2>
+      <p class="empty">Data is stored on this phone. Copy a backup and keep it somewhere safe.</p>
+      <button class="btn" onclick="backup()">Copy backup</button>
+      <button class="btn alt" onclick="restore()">Restore backup</button></div>`;
+},
+pupils(){
+  return `<div class="card"><h2>Add pupil</h2>
+    <label>Full name</label><input id="pn">
+    <div class="row"><div><label>Class</label><select id="pc">${opts(CLASSES,ui.cls)}</select></div>
+    <div><label>Sex</label><select id="ps"><option>Girl</option><option>Boy</option></select></div></div>
+    <label>Parent or guardian</label><input id="pg">
+    <label>Phone</label><input id="pt" type="tel">
+    <button class="btn" onclick="addPupil()">Save pupil</button></div>
+    <div class="card"><h2>Pupils</h2>
+    <div class="row"><input id="q" placeholder="Search name" oninput="ui.q=this.value;listPupils()" value="${esc(ui.q)}">
+    <select id="fc" onchange="ui.fcls=this.value;listPupils()"><option value="">All classes</option>${opts(CLASSES,ui.fcls)}</select></div>
+    <div id="plist"></div></div>`;
+},
+attend(){
+  const rec=db.att[ui.date+"|"+ui.cls]||{};
+  const ps=db.pupils.filter(p=>p.cls===ui.cls);
+  const rows=ps.map(p=>`<div class="item"><span>${esc(p.name)}</span><div class="pa">
+    <button class="p ${rec[p.id]==="P"?"on":""}" onclick="mark('${p.id}','P')">P</button>
+    <button class="a ${rec[p.id]==="A"?"on":""}" onclick="mark('${p.id}','A')">A</button></div></div>`).join("");
+  const np=Object.values(rec).filter(v=>v==="P").length;
+  return `<div class="card"><h2>Attendance</h2><div class="row">
+    <div><label>Class</label><select onchange="ui.cls=this.value;render()">${opts(CLASSES,ui.cls)}</select></div>
+    <div><label>Date</label><input type="date" value="${ui.date}" onchange="ui.date=this.value;render()"></div></div></div>
+    <div class="card">${rows||'<div class="empty">No pupils in this class yet.</div>'}
+    ${ps.length?`<p class="empty">Present: ${np} of ${ps.length}</p>`:""}</div>`;
+},
+marks(){
+  const ps=db.pupils.filter(p=>p.cls===ui.cls);
+  const get=id=>{const m=db.marks.find(x=>x.pid===id&&x.subject===ui.subj&&x.term===ui.term);return m?m.score:""};
+  const rows=ps.map(p=>`<div class="item"><span>${esc(p.name)}</span>
+    <input class="score" type="number" min="0" max="100" inputmode="numeric" value="${get(p.id)}" onchange="setMark('${p.id}',this.value)"></div>`).join("");
+  const rank=ps.map(p=>{const ms=db.marks.filter(m=>m.pid===p.id&&m.term===ui.term);
+    return {n:p.name,c:ms.length,avg:ms.length?ms.reduce((s,m)=>s+Number(m.score),0)/ms.length:-1}})
+    .filter(r=>r.c).sort((a,b)=>b.avg-a.avg)
+    .map((r,i)=>`<div class="item"><span>${i+1}. ${esc(r.n)}<small>${r.c} subject(s)</small></span><b>${r.avg.toFixed(1)}</b></div>`).join("");
+  return `<div class="card"><h2>Marks</h2><div class="row">
+    <div><label>Class</label><select onchange="ui.cls=this.value;render()">${opts(CLASSES,ui.cls)}</select></div>
+    <div><label>Term</label><select onchange="ui.term=this.value;render()">${opts(TERMS,ui.term)}</select></div></div>
+    <label>Subject</label><select onchange="ui.subj=this.value;render()">${opts(SUBJECTS,ui.subj)}</select></div>
+    <div class="card"><h2>Enter scores (out of 100)</h2>${rows||'<div class="empty">No pupils in this class yet.</div>'}</div>
+    <div class="card"><h2>Class ranking, ${ui.term}</h2>${rank||'<div class="empty">No marks entered yet.</div>'}</div>`;
+},
+fees(){
+  const list=[...db.fees].reverse().slice(0,30).map(f=>`<div class="item"><span>${esc(pupilName(f.pid))}<small>${f.date}${f.note?" · "+esc(f.note):""}</small></span>
+    <span><b>${money(f.amount)}</b><button class="x" onclick="delFee('${f.id}')" aria-label="Delete payment">×</button></span></div>`).join("");
+  return `<div class="card"><h2>Record payment</h2>
+    <label>Pupil</label><select id="fp">${db.pupils.map(p=>`<option value="${p.id}">${esc(p.name)} (${p.cls})</option>`).join("")}</select>
+    <div class="row"><div><label>Amount</label><input id="fa" type="number" inputmode="numeric"></div>
+    <div><label>Note</label><input id="fn" placeholder="Term 1 fees"></div></div>
+    <button class="btn" onclick="addFee()">Save payment</button></div>
+    <div class="card"><h2>Recent payments</h2>${list||'<div class="empty">No payments recorded.</div>'}</div>`;
+},
+teachers(){
+  const list=db.teachers.map(t=>`<div class="item"><span>${esc(t.name)}<small>${esc(t.subject)}${t.phone?" · "+esc(t.phone):""}</small></span>
+    <button class="x" onclick="delTeacher('${t.id}')" aria-label="Delete staff">×</button></div>`).join("");
+  return tAttend()+`<div class="card"><h2>Add staff member</h2>
+    <label>Full name</label><input id="tn"><label>Subject or role</label><input id="ts">
+    <label>Phone</label><input id="tp" type="tel"><button class="btn" onclick="addTeacher()">Save staff</button></div>
+    <div class="card"><h2>Staff list</h2>${list||'<div class="empty">No staff added yet.</div>'}</div>`+tRoll();
+}};
+
+function addPupil(){
+  const n=$("#pn").value.trim();if(!n){alert("Enter the pupil's name.");return}
+  ui.cls=$("#pc").value;
+  db.pupils.push({id:uid(),name:n,cls:ui.cls,sex:$("#ps").value,guardian:$("#pg").value.trim(),phone:$("#pt").value.trim()});
+  save();render();
+}
+function listPupils(){
+  const q=ui.q.toLowerCase();
+  const ps=db.pupils.filter(p=>(!ui.fcls||p.cls===ui.fcls)&&p.name.toLowerCase().includes(q)).sort((a,b)=>a.name.localeCompare(b.name));
+  $("#plist").innerHTML=ps.map(p=>`<div class="item"><span>${esc(p.name)}<small>${p.cls} · ${p.sex}${p.guardian?" · "+esc(p.guardian):""}${p.phone?" · "+esc(p.phone):""}</small></span>
+    <button class="x" onclick="delPupil('${p.id}')" aria-label="Delete pupil">×</button></div>`).join("")||'<div class="empty">No pupils found.</div>';
+}
+function delPupil(id){
+  if(!confirm("Delete this pupil and their marks and payments?"))return;
+  db.pupils=db.pupils.filter(p=>p.id!==id);db.marks=db.marks.filter(m=>m.pid!==id);db.fees=db.fees.filter(f=>f.pid!==id);
+  save();render();
+}
+function mark(id,v){
+  const k=ui.date+"|"+ui.cls;db.att[k]=db.att[k]||{};
+  db.att[k][id]=db.att[k][id]===v?undefined:v;if(!db.att[k][id])delete db.att[k][id];
+  save();render();
+}
+function setMark(pid,val){
+  db.marks=db.marks.filter(m=>!(m.pid===pid&&m.subject===ui.subj&&m.term===ui.term));
+  if(val!==""){const s=Math.max(0,Math.min(100,Number(val)));db.marks.push({pid,subject:ui.subj,term:ui.term,score:s})}
+  save();
+}
+function addFee(){
+  const pid=$("#fp").value,a=Number($("#fa").value);
+  if(!pid||!(a>0)){alert("Choose a pupil and enter an amount.");return}
+  db.fees.push({id:uid(),pid,amount:a,date:today(),note:$("#fn").value.trim()});save();render();
+}
+function delFee(id){if(confirm("Delete this payment?")){db.fees=db.fees.filter(f=>f.id!==id);save();render()}}
+function tAttend(){
+  const rec=db.tatt[ui.tdate]||{};
+  const rows=db.teachers.map(t=>`<div class="item"><span>${esc(t.name)}<small>${esc(t.subject)}</small></span><div class="pa">
+    ${["P","L","A"].map(v=>`<button class="${v.toLowerCase()} ${rec[t.id]===v?"on":""}" onclick="tmark('${t.id}','${v}')" aria-label="${{P:"Present",L:"Late",A:"Absent"}[v]}">${v}</button>`).join("")}</div></div>`).join("");
+  return `<div class="card"><h2>Teacher attendance</h2><label>Date</label>
+    <input type="date" value="${ui.tdate}" onchange="ui.tdate=this.value;render()">
+    <p class="empty">P = present, L = late, A = absent. Tap again to clear.</p>
+    ${rows||'<div class="empty">Add staff below to take attendance.</div>'}</div>`;
+}
+function tmark(id,v){
+  const k=ui.tdate;db.tatt[k]=db.tatt[k]||{};
+  if(db.tatt[k][id]===v)delete db.tatt[k][id];else db.tatt[k][id]=v;
+  if(!Object.keys(db.tatt[k]).length)delete db.tatt[k];
+  save();render();
+}
+function tRoll(){
+  const days=Object.keys(db.tatt).filter(d=>d.startsWith(ui.tmonth));
+  const rows=db.teachers.map(t=>{
+    let p=0,l=0,a=0;days.forEach(d=>{const v=db.tatt[d][t.id];if(v==="P")p++;else if(v==="L")l++;else if(v==="A")a++});
+    return `<div class="item"><span>${esc(t.name)}<small>${esc(t.subject)}</small></span><span style="text-align:right"><b>${p+l}</b> present<small>${l} late · ${a} absent</small></span></div>`}).join("");
+  return `<div class="card"><h2>Teachers' roll</h2><label>Month</label>
+    <input type="month" value="${ui.tmonth}" onchange="ui.tmonth=this.value||ui.tmonth;render()">
+    ${rows||'<div class="empty">No staff yet.</div>'}</div>`;
+}
+function addTeacher(){
+  const n=$("#tn").value.trim();if(!n){alert("Enter the staff member's name.");return}
+  db.teachers.push({id:uid(),name:n,subject:$("#ts").value.trim(),phone:$("#tp").value.trim()});save();render();
+}
+function delTeacher(id){if(confirm("Delete this staff member?")){db.teachers=db.teachers.filter(t=>t.id!==id);save();render()}}
+function backup(){
+  const t=JSON.stringify(db);
+  (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>alert("Backup copied. Paste it into a note or message to keep it.")).catch(()=>prompt("Copy this backup:",t));
+}
+function restore(){
+  const t=prompt("Paste your backup here:");if(!t)return;
+  try{const d=JSON.parse(t);if(!d.pupils)throw 0;db=Object.assign(empty(),d);db.tatt=db.tatt||{};save();render();alert("Backup restored.")}catch(e){alert("That backup is not valid.")}
+}
+render();
+</script>
+</body>
+</html>
